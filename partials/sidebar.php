@@ -78,13 +78,13 @@
             <span class="nav-tooltip">Configuración</span>
         </li>
 
-        <li class="nav-item">
+        <!--li class="nav-item">
             <a class="nav-link" id="themeToggle">
                 <span class="nav icon material-symbols-rounded">dark_mode</span>
                 <span class="nav-label">Cambiar tema</span>
             </a>
             <span class="nav-tooltip">Cambiar tema</span>
-        </li>
+        </li-->
 
         <li class="nav-item">
             <a class="nav-link" href="index.php?action=logout">
