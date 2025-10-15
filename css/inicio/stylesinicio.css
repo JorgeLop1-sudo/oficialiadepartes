@@ -1,0 +1,110 @@
+:root {
+    --primary-color: #002b64;
+    --secondary-color: rgb(4, 88, 156);
+    --accent-color: #e74c3c;
+    --light-color: #f8f9fa;
+    --text-color: #ffffff;
+    --text-color-gris: gray;
+    --border-color: #00519c;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(154, 154, 240, 0.4) 0%, transparent 65%),
+        radial-gradient(circle at 80% 20%, rgba(56, 72, 95, 0.4) 0%, transparent 65%),
+        linear-gradient(135deg, #89bcff 0%, #508bff 100%);
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    margin: 0;
+    padding: 20px;
+    color: var(--text-color);
+}
+
+.main-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    background: var(--primary-color);
+    color: var(--text-color);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px 0px 10px 0px;
+    width: 100%;
+    box-shadow: 0 10px 30px var(--border-color);
+    box-sizing: border-box;
+}
+
+.header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.header p {
+    margin: 10px 0 0;
+    opacity: 0.8;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 10px;
+}
+
+.nav-link {
+    margin: 0 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--light-color);
+}
+
+.content {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-radius: 15px 0px 15px 0px;
+    box-shadow: 0px 10px 30px var(--border-color);
+    overflow: hidden;
+    width: 100%;
+}
+
+.form {
+    padding: 30px;
+}
+
+.form-control {
+    border-radius: 10px 0 10px 0;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s;
+    background-color: white;
+    color: var(--text-color-gris);
+}
+
+.form-control:focus {
+    box-shadow: 0 5px 5px var(--light-color);
+}
+

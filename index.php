@@ -8,6 +8,10 @@ switch($action){
     case 'login':
         (new LoginController())->login();
         break;
+    
+    default:
+        (new LoginController())->login();
+        break;
 }
 
 ?>

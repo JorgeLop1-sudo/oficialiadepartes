@@ -11,12 +11,11 @@ class LoginController {
     }
 
     public function login() {
-        // Headers para evitar cache
+        
         header("Cache-Control: no-cache, no-store, must-revalidate");
         header("Pragma: no-cache");
         header("Expires: 0");
         
-        // Inicializar variables para la vista
         $identificador = "";
         $pass = "";
         $error = "";
@@ -35,9 +34,9 @@ class LoginController {
                 $_SESSION['usuario'] = $user['usuario'];
                 $_SESSION['nombre'] = $user['nombre'];
                 $_SESSION['tipo_usuario'] = $user['tipo_usuario'];
-                $_SESSION['usuario_id'] = $user['id']; // Para usar en otros controladores
+                $_SESSION['usuario_id'] = $user['id']; 
 
-                // Redirigir según el tipo de usuario
+                
                 $this->redirectByUserType($user['tipo_usuario']);
             } else {
                 $error = ($res['reason'] === 'not_found') ? 
@@ -46,7 +45,6 @@ class LoginController {
             }
         }
         
-        // Pasar las variables a la vista
         include __DIR__ . '/../views/login.php';
     }
 
@@ -67,13 +65,11 @@ class LoginController {
     }
 
     public function dashboard() {
-        // Verificar si la sesión existe y es válida
         if (!isset($_SESSION['id'])) {
             header("Location: index.php?action=login");
             exit;
         }
         
-        // Redirigir según el tipo de usuario
         if (isset($_SESSION['tipo_usuario'])) {
             $this->redirectByUserType($_SESSION['tipo_usuario']);
         } else {
@@ -83,10 +79,8 @@ class LoginController {
     }
 
     public function logout() {
-        // Limpiar todas las variables de sesión
         $_SESSION = array();
         
-        // Destruir la cookie de sesión
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000,
@@ -97,12 +91,12 @@ class LoginController {
         
         session_destroy();
         
-        // Headers para evitar cache
+        
         header("Cache-Control: no-cache, no-store, must-revalidate");
         header("Pragma: no-cache");
         header("Expires: 0");
         
-        // Redirigir al login
+        
         header("Location: index.php?action=login");
         exit();
     }
