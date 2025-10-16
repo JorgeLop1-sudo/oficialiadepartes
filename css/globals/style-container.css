@@ -1,0 +1,115 @@
+.users-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.user-card {
+    background: rgb(236, 236, 236);
+    border-radius: 10px 1px 10px 1px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+}
+
+.user-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.user-id {
+    background: var(--secondary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.user-name {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.user-detail {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.user-detail-icon {
+    width: 20px;
+    color: var(--secondary-color);
+    margin-right: 10px;
+}
+
+.user-detail-text {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.user-list {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgb(243, 243, 243);
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+}
+.user-item {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+.user-item:last-child {
+    border-bottom: none;
+}
+.user-count {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.form-control{
+    border-radius: 0px 5px 0 5px;
+}
+
+.btn{
+    border-radius: 0px 5px 0 5px;
+}
+
+.password-toggle {
+    cursor: pointer;
+}
+.password-match-error {
+    display: none;
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
+.username-error {
+    display: none;
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
