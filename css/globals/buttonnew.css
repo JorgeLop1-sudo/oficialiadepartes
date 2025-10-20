@@ -17,6 +17,8 @@
 .btn-new:hover {
     background: #219653;
     transform: translateY(-2px);
+    color: white;
+    box-shadow: 0 5px 10px var(--success-color);
 }
 
 .btn-new i {

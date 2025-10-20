@@ -132,19 +132,7 @@ header("Expires: 0");
     </div>
 
     <script>
-        // Mostrar/ocultar campo de número de documento según selección
-        document.querySelectorAll('input[name="tipoDocumento"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const numeroDocumento = document.getElementById('numeroDocumento');
-                if (this.value === 'ruc_dni') {
-                    numeroDocumento.style.display = 'block';
-                    numeroDocumento.setAttribute('required', 'true');
-                } else {
-                    numeroDocumento.style.display = 'none';
-                    numeroDocumento.removeAttribute('required');
-                }
-            });
-        });
+        
         
         // Manejar la subida de archivos
         const fileInput = document.getElementById('archivo');

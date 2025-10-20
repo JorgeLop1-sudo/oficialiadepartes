@@ -2,11 +2,10 @@
     --primary-color: #002b64;
     --secondary-color: rgb(4, 88, 156);
     --accent-color: #e74c3c;
-    --light-color: #f8f9fa;
-    --text-color: #ffffff;
+    --light-color: #ecf0f1;
     --text-color-gris: gray;
+    --text-color: #0000;
     --border-color: #00519c;
-    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -23,7 +22,7 @@ body {
     position: relative;
     margin: 0;
     padding: 20px;
-    color: var(--text-color);
+    color: var(--light-color);
 }
 
 .main-container {
@@ -36,7 +35,7 @@ body {
 
 .header {
     background: var(--primary-color);
-    color: var(--text-color);
+    color: var(--light-color);
     padding: 20px;
     text-align: center;
     border-radius: 10px 0px 10px 0px;
@@ -67,7 +66,7 @@ body {
 
 .nav-link {
     margin: 0 15px;
-    color: var(--text-color);
+    color: var(--light-color);
     text-decoration: none;
     font-weight: 600;
     padding: 8px 15px;
@@ -83,7 +82,7 @@ body {
 
 .content {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: var(--light-color);
     border-radius: 15px 0px 15px 0px;
     box-shadow: 0px 10px 30px var(--border-color);
     overflow: hidden;
@@ -142,12 +141,12 @@ body {
     padding: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: var(--text-color);
+    color: var(--light-color);
 }
 
 .login-option.active {
     background: var(--secondary-color);
-    color: var(--text-color);
+    color: var(--light-color);
 }
 
 .login-option i {
@@ -179,7 +178,7 @@ body {
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: #6c757d;
+    color: var(--text-color-gris);
     cursor: pointer;
     padding: 0;
     width: 24px;
@@ -192,8 +191,6 @@ body {
 .toggle-password:hover {
     color: var(--secondary-color);
 }
-
-
 
 
 .btndescargar a{
