@@ -77,7 +77,7 @@ header("Expires: 0");
                 </div>
                 
                 <!-- Sección de Contacto -->
-                <div class="form-section">
+                <!--div class="form-section">
                     <h3 class="form-section-title">Datos de Contacto</h3>
                     
                     <div class="row">
@@ -90,16 +90,16 @@ header("Expires: 0");
                             <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Número de teléfono" required>
                         </div>
                     </div>
-                </div>
+                </div-->
                 
                 <!-- Sección de Contenido -->
                 <div class="form-section">
                     <h3 class="form-section-title">Contenido del Trámite</h3>
                     
-                    <div class="mb-3">
+                    <!--div class="mb-3">
                         <label for="asunto" class="form-label">Asunto</label>
                         <input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del trámite" required>
-                    </div>
+                    </div-->
                     
                     <div class="mb-3">
                         <label class="form-label">Archivo</label>
