@@ -34,6 +34,7 @@ class UsersAdminController {
         $mostrar_modal_editar = false;
         $error_modal_nuevo = "";
         $error_modal_editar = "";
+        $usuario_editar = null; // Asegurar que esté inicializada
 
         // Procesar formularios
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -68,6 +69,8 @@ class UsersAdminController {
                 if ($password && $_POST['password'] !== $_POST['confirm_password']) {
                     $error_modal_editar = "Error: Las contraseñas no coinciden";
                     $mostrar_modal_editar = true;
+                    // Guardar los datos del formulario para mostrarlos en el modal
+                    $form_data_editar = $_POST;
                 } else {
                     $resultado = $userModel->actualizar(
                         $_POST['id'],
@@ -82,6 +85,8 @@ class UsersAdminController {
                     if (strpos($resultado, 'Error:') === 0) {
                         $error_modal_editar = $resultado;
                         $mostrar_modal_editar = true;
+                        // Guardar los datos del formulario para mostrarlos en el modal
+                        $form_data_editar = $_POST;
                     } else {
                         header("Location: index.php?action=usersadmin&mensaje=" . urlencode($resultado));
                         exit();
@@ -109,10 +114,18 @@ class UsersAdminController {
         }
 
         // Obtener usuario para editar (solo si viene por GET y no hay error de POST)
-        $usuario_editar = null;
         if (isset($_GET['editar']) && !$mostrar_modal_editar) {
             $usuario_editar = $userModel->obtenerPorId($_GET['editar']);
             $mostrar_modal_editar = true;
+        }
+
+        // Si hay un error en edición por POST, cargar los datos del formulario
+        if ($mostrar_modal_editar && isset($form_data_editar)) {
+            $usuario_editar = $form_data_editar;
+            // Asegurarse de que el ID esté presente
+            if (!isset($usuario_editar['id']) && isset($_POST['id'])) {
+                $usuario_editar['id'] = $_POST['id'];
+            }
         }
 
         // Obtener datos
