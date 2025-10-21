@@ -25,6 +25,32 @@ body {
     color: var(--light-color);
 }
 
+.all-login{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+.imagen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    max-width: 50%;
+}
+
+.imagen img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: var(--light-color);
+}
+
 .main-container {
     width: 100%;
     max-width: 400px;
@@ -43,7 +69,6 @@ body {
     box-shadow: 0 10px 30px var(--border-color);
     box-sizing: border-box;
 }
-
 
 .header h1 {
     margin: 0;
@@ -109,9 +134,6 @@ body {
     box-shadow: 0 3px 5px var(--light-color);
 }
 
-
-
-
 .login-type {
     display: flex;
     background: var(--text-color-gris);
@@ -152,7 +174,6 @@ body {
     border: 1px solid #f5c6cb;
 }
 
-
 .password-container {
     position: relative;
 }
@@ -178,14 +199,11 @@ body {
     color: var(--secondary-color);
 }
 
-
 .btndescargar a{
     display: flex;
     justify-content: center;
     text-decoration: none;
 }
-
-
 
 /* Estilos específicos para la página de búsqueda */
 .page-title {
@@ -290,10 +308,31 @@ body {
     align-items: center;
 }
 
-@media (max-width: 768px) {
-    
-    .security-code span {
-        margin-right: 0;
-        margin-bottom: 15px;
+/* Media queries para responsividad */
+@media (max-width: 992px) {
+    .all-login {
+        flex-direction: column;
+        max-width: 500px;
     }
+    
+    .imagen {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .all-login {
+        max-width: 100%;
+    }
+    
+    
+}
+
+@media (max-width: 576px) {
+    
 }

@@ -18,41 +18,48 @@
 </head>
 <body>
 
-<div class="main-container">
+    <div class="all-login">
+            <div class="imagen d-none d-lg-flex">
+                <img src="/oficialiadepartes/css/images/fondo-login.png" alt="logo">
+            </div>
 
-    <?php include 'partials/headerinicio.php'; ?>
+            <div class="main-container">
 
-    <div class="content">
-        <div class="form">
-            <h3 class="text-center mb-4">Buscar Trámite</h3>
-            
-            <form id="searchForm" method="POST">
-                <div class="mb-3">
-                    <label for="expediente" class="form-label">Ingresar N° de Expediente</label>
-                    <input type="text" class="form-control" id="expediente" name="expediente" placeholder="Ejemplo: 7878787" required>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="codigo" class="form-label">Ingresar Código de Seguridad</label>
-                    <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código mostrado" required>
-                </div>
-                
-                <div class="security-code">
-                    <span id="codigoSeguridad">A7B9</span>
-                    <div>
-                        <p class="mb-1">Código de seguridad (distingue entre mayúsculas y minúsculas)</p>
-                        <a href="#" onclick="generarCodigo(); return false;"><i class="fas fa-sync-alt"></i> Generar nuevo código</a>
+                <?php include 'partials/headerinicio.php'; ?>
+
+                <div class="content">
+                    <div class="form">
+                        <h3 class="text-center mb-4">Buscar Trámite</h3>
+                        
+                        <form id="searchForm" method="POST">
+                            <div class="mb-3">
+                                <label for="expediente" class="form-label">Ingresar N° de Expediente</label>
+                                <input type="text" class="form-control" id="expediente" name="expediente" placeholder="Ejemplo: 7878787" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="codigo" class="form-label">Ingresar Código de Seguridad</label>
+                                <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código mostrado" required>
+                            </div>
+                            
+                            <div class="security-code">
+                                <span id="codigoSeguridad">A7B9</span>
+                                <div>
+                                    <p class="mb-1">Código de seguridad (distingue entre mayúsculas y minúsculas)</p>
+                                    <a href="#" onclick="generarCodigo(); return false;"><i class="fas fa-sync-alt"></i> Generar nuevo código</a>
+                                </div>
+                            </div>
+                            <div class="divbtn-action">
+                                <button type="submit" class="btn-action">
+                                    Buscar
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="divbtn-action">
-                    <button type="submit" class="btn-action">
-                        Buscar
-                    </button>
-                </div>
-            </form>
-        </div>
+            </div>
     </div>
-</div>
+
 
     <!-- Modal para mostrar resultados -->
     <div class="modal fade" id="resultadoModal" tabindex="-1" aria-labelledby="resultadoModalLabel" aria-hidden="true">
