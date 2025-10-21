@@ -42,6 +42,39 @@
     box-shadow: 0px 0px 5px var(--accent-color);
 }
 
+.btn-success{
+    background-color: var(--success-color);
+    box-shadow: 0px 0px 5px var(--success-color);
+}
+
+.btn-success:hover{
+    background-color: #218a4d;
+    transform: translateY(-2px);
+    box-shadow: 0px 0px 5px #218a4d;
+}
+
+.btn-warning{
+    background-color: var(--warning-color);
+    box-shadow: 0px 0px 5px var(--warning-color);
+}
+
+.btn-warning:hover{
+    background-color: #d48a12;
+    transform: translateY(-2px);
+    box-shadow: 0px 0px 5px #cc8411;
+}
+
+.btn-primary{
+    background-color: var(--secondary-color);
+    box-shadow: 0px 0px 5px var(--secondary-color);
+}
+
+.btn-primary:hover{
+    background-color: #002049;
+    transform: translateY(-2px);
+    box-shadow: 0px 0px 5px #002049;
+}
+
 .sectionbutton a{
     text-decoration: none;
     display: flex;

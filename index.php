@@ -9,6 +9,7 @@ require_once __DIR__ . '/controllers/ExpedientesController.php';
 require_once __DIR__ . '/controllers/ConfigController.php';
 require_once __DIR__ . '/controllers/RegistrarController.php';
 require_once __DIR__ . '/controllers/BuscarController.php';
+require_once __DIR__ . '/controllers/ResponderOficioController.php';
 
 $action = $_GET['action'] ?? 'login';
 
@@ -40,7 +41,9 @@ switch($action){
     case 'buscarOficio':
         (new BuscarController())->buscar();
         break;
-
+    case 'responder':
+        (new ResponderOficioController())->responder();
+        break;
     case 'config':
         (new ConfigController())->config();
         break;

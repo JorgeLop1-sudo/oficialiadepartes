@@ -170,7 +170,7 @@
                                     
                                     <!-- Solo mostrar responder si el oficio está asignado al usuario actual -->
                                     <?php if ($expediente['usuario_derivado_id'] == $_SESSION['id'] || $tipo_usuario === 'Administrador'): ?>
-                                        <a href="index.php?action=responderoficio&id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
+                                        <a href="index.php?action=responder&id=<?php echo $expediente['id']; ?>" class="btn btn-sm btn-success" title="Responder documento">
                                             <i class="nav icon material-symbols-rounded">reply</i>
                                         </a>
                                     <?php endif; ?>

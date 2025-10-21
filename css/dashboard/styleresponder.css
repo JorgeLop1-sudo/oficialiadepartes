@@ -1,0 +1,148 @@
+.document-details {
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ecf0f1;
+}
+.detail-row {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #151A2D;
+}
+.detail-label {
+    font-weight: bold;
+    color: #495057;
+}
+.detail-value {
+    color: #212529;
+}
+.file-preview {
+    background-color: #ecf0f1;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+}
+.action-buttons {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ecf0f1;
+}
+
+
+.derivation-timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item.current .timeline-marker {
+    color: #28a745;
+    background-color: #ecf0f1;
+    border: 2px solid #28a745;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -40px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #ecf0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.timeline-content {
+    border-left: 4px solid #007bff;
+    margin-left: 10px;
+    padding-left: 0;
+}
+
+.timeline-item.current .timeline-content {
+    border-left: 4px solid #28a745;
+}
+
+.timeline-header {
+    background-color: #ecf0f1;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.timeline-step {
+    color: #495057;
+}
+
+.section-title {
+    color: #495057;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #ecf0f1;
+    padding-bottom: 5px;
+}
+
+.info-box {
+    background-color: #ecf0f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.info-value {
+    color: #495057;
+}
+
+.response-content {
+    background-color: #ecf0f1;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+.final-status {
+    text-align: center;
+    padding: 15px;
+}
+
+/* Línea conectadora */
+.derivation-timeline::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #ecf0f1;
+    z-index: 1;
+}
+.text-fecha{
+    color: #6c757d;
+}
+
