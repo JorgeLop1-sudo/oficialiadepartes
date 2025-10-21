@@ -44,6 +44,7 @@ body {
     box-sizing: border-box;
 }
 
+
 .header h1 {
     margin: 0;
     font-weight: 700;
@@ -53,6 +54,7 @@ body {
 .header p {
     margin: 10px 0 0;
     opacity: 0.8;
+    color: var(--light-color);
 }
 
 .nav-links {
@@ -107,29 +109,8 @@ body {
     box-shadow: 0 3px 5px var(--light-color);
 }
 
-.divbtn-action{
-    display: flex;
-    justify-content: center;
-}
 
-.btn-action {
-    background: var(--secondary-color);
-    border: none;
-    color: var(--light-color);
-    padding: 12px;
-    border-radius: 10px 0 10px 0;
-    font-weight: 600;
-    width: 80%;
-    margin-top: 10px;
-    transition: all 0.3s;
-    box-shadow: 0px 0px 5px var(--border-color);
-}
 
-.btn-action:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
-    box-shadow: 0px 0px 5px #2980b9;
-}
 
 .login-type {
     display: flex;
@@ -295,32 +276,6 @@ body {
 .status-denegado {
     background-color: #f8d7da;
     color: #721c24;
-}
-
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--primary-color);
-    color: var(--text-color);
-    border: 2px solid var(--border-color);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 15px var(--shadow-color);
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
-
-.theme-toggle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--shadow-color);
-    background: var(--secondary-color);
-    color: white;
 }
 
 .modal-footer{

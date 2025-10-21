@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="stylesheet" href="/oficialiadepartes/css/inicio/stylesinicio.css" id="theme-style">
+    <link rel="stylesheet" href="/oficialiadepartes/css/globals/buttonaction.css" id="theme-style">
+
 
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
