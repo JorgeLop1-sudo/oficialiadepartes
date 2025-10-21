@@ -11,6 +11,17 @@
     justify-content: center;
 }
 
+.btn-secondary{
+    background-color: var(--text-color-gris);
+    box-shadow: 0px 0px 5px var(--text-color-gris);
+}
+
+.btn-secondary:hover{
+    background-color: #555555;
+    transform: translateY(-2px);
+    box-shadow: 0px 0px 5px #555555;
+}
+
 .btn-action {
     background: var(--secondary-color);
     border: none;
@@ -74,6 +85,8 @@
     transform: translateY(-2px);
     box-shadow: 0px 0px 5px #002049;
 }
+
+
 
 .sectionbutton a{
     text-decoration: none;
