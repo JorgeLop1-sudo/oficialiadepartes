@@ -1,0 +1,249 @@
+/* Estilos para la nueva tabla */
+.text-danger {
+    color: #dc3545;
+}
+
+.form-label.required::after {
+    content: " *";
+    color: #dc3545;
+}
+
+select:required:invalid {
+    border-color: #dc3545;
+}
+
+select:required:valid {
+    border-color: #198754;
+}
+
+.search-section {
+    background: rgb(236, 236, 236);
+    border-radius: 10px 0 10px 0;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.search-title {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.search-field {
+    margin-bottom: 10px;
+}
+
+.search-field label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.search-field input, .search-field select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px 0 10px 0;
+}
+
+.search-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+
+/* Estilos para la nueva tabla */
+.expedientes-container {
+    background: #ecf0f1;
+    border-radius: 10px 0 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.expedientes-header {
+    background: #ecf0f1;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.expedientes-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.expedientes-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.expedientes-table thead {
+    background-color: #f8f9fa;
+}
+
+.expedientes-table th {
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 2px solid #dee2e6;
+}
+
+.expedientes-table td {
+    padding: 12px 15px;
+   
+    vertical-align: top;
+}
+
+.expedientes-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.expedientes-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.expedientes-table .action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.expedientes-table .action-buttons .btn {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+}
+
+.no-expedientes-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+}
+
+.no-expedientes-message i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+    color: #adb5bd;
+}
+
+.no-expedientes-message h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.no-expedientes-message p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Estilos para la paginación */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+}
+
+.pagination-info {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.pagination-btn {
+    padding: 6px 12px;
+    border: 1px solid #dee2e6;
+    background: white;
+    color: var(--primary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: var(--primary-color);
+    color: white;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.btn i{
+    color: white;
+}
+
+/* Estilos responsivos */
+@media (max-width: 992px) {
+    .expedientes-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .expedientes-table th:nth-child(1),
+    .expedientes-table td:nth-child(1) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .expedientes-table th:nth-child(2),
+    .expedientes-table td:nth-child(2) {
+        display: none;
+    }
+    
+    .expedientes-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .search-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    
+    .pagination-container {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .expedientes-table th:nth-child(4),
+    .expedientes-table td:nth-child(4) {
+        display: none;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}

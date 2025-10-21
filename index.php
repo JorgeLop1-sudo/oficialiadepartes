@@ -5,6 +5,7 @@ require_once __DIR__ . '/controllers/LoginController.php';
 require_once __DIR__ . '/controllers/HomeDashController.php';
 require_once __DIR__ . '/controllers/AreasAdminController.php';
 require_once __DIR__ . '/controllers/UsersAdminController.php';
+require_once __DIR__ . '/controllers/ExpedientesController.php';
 require_once __DIR__ . '/controllers/ConfigController.php';
 require_once __DIR__ . '/controllers/RegistrarController.php';
 require_once __DIR__ . '/controllers/BuscarController.php';
@@ -26,6 +27,9 @@ switch($action){
         break;
     case 'usersadmin':
         (new UsersAdminController())->users();
+        break;
+    case 'expedientes':
+        (new ExpedientesController())->expedientes();
         break;
     case 'registrar':
         (new RegistrarController())->registro();

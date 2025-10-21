@@ -22,7 +22,7 @@ class RegistrarController {
         
         // Verificar si el usuario tiene permiso para acceder (guardia, admin, o user según necesites)
         $tipo_usuario = $_SESSION['tipo_usuario'] ?? '';
-        $usuarios_permitidos = ['Guardia', 'Administrador']; // Ajusta según tus necesidades
+        $usuarios_permitidos = ['Guardia']; // Ajusta según tus necesidades
         
         if (!in_array($tipo_usuario, $usuarios_permitidos)) {
             header('Location: index.php?action=homedash');
@@ -49,8 +49,10 @@ class RegistrarController {
         $dependencia = mysqli_real_escape_string($this->db, $_POST['dependencia']);
         $numero_documento = isset($_POST['numeroDocumento']) ? mysqli_real_escape_string($this->db, $_POST['numeroDocumento']) : null;
         
+        $area_derivada_id=2;
+        $usuario_derivado_id=2;
         // Valores fijos
-        $area_id = 1; // Valor fijo para area_id
+        $area_id = 3; // Valor fijo para area_id
         $usuario_id = $_SESSION['usuario_id']; // Usar el ID del usuario logueado
         
         // Verificar si el área existe
@@ -74,8 +76,8 @@ class RegistrarController {
         }
         
         // Insertar en la base de datos
-        $insert_query = "INSERT INTO oficios (remitente, dependencia, numero_documento, archivo_nombre, archivo_ruta, area_id, usuario_id) 
-                        VALUES ('$remitente', '$dependencia', '$numero_documento', '$archivo_nombre', '$archivo_ruta2', '$area_id', '$usuario_id')";
+        $insert_query = "INSERT INTO oficios (remitente, dependencia, numero_documento, archivo_nombre, archivo_ruta, area_derivada_id, usuario_derivado_id, area_id, usuario_id) 
+                        VALUES ('$remitente', '$dependencia', '$numero_documento', '$archivo_nombre', '$archivo_ruta2', '$area_derivada_id', '$usuario_derivado_id', '$area_id', '$usuario_id')";
         
         if (mysqli_query($this->db, $insert_query)) {
             return ['mensaje' => "Oficio registrado correctamente.", 'tipo' => "success"];
@@ -93,7 +95,7 @@ class RegistrarController {
         $archivo_nombre = basename($_FILES['archivo']['name']);
         $archivo_temporal = $_FILES['archivo']['tmp_name'];
         $archivo_ruta = $directorio . time() . '_' . $archivo_nombre;
-        $archivo_ruta2 = '../../' . $directorio . time() . '_' . $archivo_nombre;
+        $archivo_ruta2 = '/oficialiadepartes/' . $directorio . time() . '_' . $archivo_nombre;
         
         if (!move_uploaded_file($archivo_temporal, $archivo_ruta)) {
             return ['error' => true, 'mensaje' => "Error al subir el archivo."];

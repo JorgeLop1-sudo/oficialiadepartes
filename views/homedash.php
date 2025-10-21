@@ -25,7 +25,7 @@
         <h3 class="page-title">Resumen de Oficios</h3>
         <div class="stats-container">
 
-            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['id'] == '2'): ?>
             <div class="stat-card pending" onclick="filterOficios('pendiente')">
                 <div class="stat-icon">
                     <i class="fas fa-clock"></i>
