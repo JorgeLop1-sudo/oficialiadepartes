@@ -112,7 +112,7 @@
         function buscarOficio(numeroDocumento) {
             // Crear una solicitud AJAX al controlador MVC
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'index.php?action=buscar_oficio', true);
+            xhr.open('POST', 'index.php?action=buscarOficio', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             
             xhr.onload = function() {
@@ -121,17 +121,17 @@
                         const response = JSON.parse(this.responseText);
                         
                         if (response.success) {
-                            // Mostrar los datos en el modal
                             mostrarResultadoEnModal(response.data);
                         } else {
                             alert(response.message || 'No se encontró el oficio solicitado.');
                         }
                     } catch (e) {
                         console.error('Error parsing JSON:', e);
-                        alert('Error al procesar la respuesta del servidor.');
+                        console.error('Response received:', this.responseText);
+                        alert('Error al procesar la respuesta del servidor. Respuesta: ' + this.responseText);
                     }
                 } else {
-                    alert('Error en la conexión con el servidor.');
+                    alert('Error en la conexión con el servidor. Status: ' + this.status);
                 }
             };
             

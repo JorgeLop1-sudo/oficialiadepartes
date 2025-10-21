@@ -37,7 +37,7 @@ switch($action){
     case 'buscar':
         (new BuscarController())->index();
         break;
-    case 'buscar':
+    case 'buscarOficio':
         (new BuscarController())->buscar();
         break;
 

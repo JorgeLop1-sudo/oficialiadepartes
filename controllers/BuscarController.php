@@ -8,6 +8,9 @@ class BuscarController {
     }
 
     public function buscar() {
+
+        error_log("BuscarController::buscar() llamado");
+        error_log("numero_documento recibido: " . ($_POST['numero_documento'] ?? 'NULL'));
         
         // Headers para evitar cache en páginas protegidas
         header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -18,6 +21,13 @@ class BuscarController {
         
         $database = new Database();
         $conn = $database->connect();
+
+        if (!$conn) {
+            error_log("Error de conexión a la base de datos");
+            echo json_encode(['success' => false, 'message' => 'Error de conexión']);
+            exit;
+        }
+        
         $buscarModel = new BuscarModel($conn);
 
         $numero_documento = isset($_POST['numero_documento']) ? $_POST['numero_documento'] : '';
