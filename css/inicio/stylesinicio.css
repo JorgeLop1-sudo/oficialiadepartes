@@ -39,14 +39,24 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px;
-    max-width: 70%;
+    max-width: 100%;
 }
 
 .imagen img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6))
+           drop-shadow(0 0 35px rgba(255, 255, 255, 0.4))
+           drop-shadow(0 0 45px rgba(255, 255, 255, 0.2));
+    transition: all 0.3s ease;
+}
+
+.imagen img:hover {
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
+           drop-shadow(0 0 40px rgba(255, 255, 255, 0.5))
+           drop-shadow(0 0 50px rgba(255, 255, 255, 0.3));
+    transform: translateY(-5px);
 }
 
 .main-container {
