@@ -107,14 +107,19 @@ body {
     box-shadow: 0 3px 5px var(--light-color);
 }
 
+.divbtn-action{
+    display: flex;
+    justify-content: center;
+}
+
 .btn-action {
     background: var(--secondary-color);
     border: none;
-    color: white;
+    color: var(--light-color);
     padding: 12px;
     border-radius: 10px 0 10px 0;
     font-weight: 600;
-    width: 100%;
+    width: 80%;
     margin-top: 10px;
     transition: all 0.3s;
     box-shadow: 0px 0px 5px var(--border-color);
@@ -251,13 +256,19 @@ body {
 
 .modal-content {
     border-radius: 10px;
+    box-shadow: 0 10px 50px var(--border-color);
 }
 
 .modal-header {
-    background-color: var(--secondary-color);
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--light-color);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    font: bold;
+}
+
+.modal-body h6, p{
+    color: var(--primary-color);
 }
 
 .status-badge {

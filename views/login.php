@@ -63,9 +63,10 @@
                         </button>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn-action">Ingresar</button>
 
+                <div class="divbtn-action">
+                    <button type="submit" class="btn-action">Ingresar</button>
+                </div>
             </form>
         </div>
     </div>

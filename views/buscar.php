@@ -42,10 +42,11 @@
                         <a href="#" onclick="generarCodigo(); return false;"><i class="fas fa-sync-alt"></i> Generar nuevo código</a>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn-action">
-                     Buscar
-                </button>
+                <div class="divbtn-action">
+                    <button type="submit" class="btn-action">
+                        Buscar
+                    </button>
+                </div>
             </form>
         </div>
     </div>

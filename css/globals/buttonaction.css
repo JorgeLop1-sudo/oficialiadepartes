@@ -7,7 +7,7 @@
 }
 
 .btn-action {
-    background: rgb(74, 175, 202);
+    background: var(--secondary-color);
     border: none;
     color: white;
     padding: 12px;
@@ -17,12 +17,13 @@
     margin-top: 10px;
     transition: all 0.3s;
     text-decoration: none;
+    box-shadow: 0px 0px 5px var(--border-color);
     
 }
 
 .btn-danger {
-    background: rgb(253, 68, 68);
-
+    background: var(--accent-color);
+    box-shadow: 0px 0px 5px var(--accent-color);
 }
 
 .sectionbutton a{
