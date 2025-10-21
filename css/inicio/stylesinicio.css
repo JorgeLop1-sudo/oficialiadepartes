@@ -39,16 +39,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    max-width: 50%;
+    padding: 0px;
+    max-width: 70%;
 }
 
 .imagen img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    background-color: var(--light-color);
 }
 
 .main-container {
