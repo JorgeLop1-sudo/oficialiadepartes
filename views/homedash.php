@@ -96,7 +96,6 @@
                                 }
                                 ?>
                             </h5>
-                            <p><?php echo $oficio['asunto']; ?></p>
                             <div class="activity-time">
                                 <?php echo formatFecha($oficio['fecha_registro']); ?> | 
                                 Área: <?php echo $oficio['area_nombre']; ?> | 

@@ -34,12 +34,8 @@ class BuscarController {
                 'success' => true,
                 'data' => [
                     'remitente' => $oficio['remitente'],
-                    'tipo_persona' => $oficio['tipo_persona'],
                     'dependencia' => $oficio['dependencia'] ?? '',
                     'numero_documento' => $oficio['numero_documento'] ?? '',
-                    'correo' => $oficio['correo'] ?? '',
-                    'telefono' => $oficio['telefono'] ?? '',
-                    'asunto' => $oficio['asunto'] ?? '',
                     'archivo_nombre' => $oficio['archivo_nombre'] ?? '',
                     'archivo_ruta' => $oficio['archivo_ruta'] ?? '',
                     'respuesta' => $oficio['respuesta'] ?? '',

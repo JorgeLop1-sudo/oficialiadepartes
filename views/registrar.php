@@ -52,17 +52,6 @@ header("Expires: 0");
                             <input type="text" class="form-control" id="remitente" name="remitente" placeholder="Nombre completo o razón social" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="tipoPersona" class="form-label">Tipo de Persona</label>
-                            <select class="form-select" id="tipoPersona" name="tipoPersona" required>
-                                <option value="" selected disabled>Seleccionar tipo</option>
-                                <option value="natural">Persona Natural</option>
-                                <option value="juridica">Persona Jurídica</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
                             <label for="dependencia" class="form-label">Dependencia</label>
                             <input type="text" class="form-control" id="dependencia" name="dependencia" placeholder="Dependencia" required>
                         </div>
@@ -76,31 +65,10 @@ header("Expires: 0");
                     </div>
                 </div>
                 
-                <!-- Sección de Contacto -->
-                <!--div class="form-section">
-                    <h3 class="form-section-title">Datos de Contacto</h3>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="correo" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="telefono" class="form-label">Teléfono</label>
-                            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Número de teléfono" required>
-                        </div>
-                    </div>
-                </div-->
                 
                 <!-- Sección de Contenido -->
                 <div class="form-section">
                     <h3 class="form-section-title">Contenido del Trámite</h3>
-                    
-                    <!--div class="mb-3">
-                        <label for="asunto" class="form-label">Asunto</label>
-                        <input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto del trámite" required>
-                    </div-->
-                    
                     <div class="mb-3">
                         <label class="form-label">Archivo</label>
                         <div class="file-upload" id="fileUploadArea">

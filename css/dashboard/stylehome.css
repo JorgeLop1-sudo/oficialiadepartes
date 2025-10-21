@@ -1,13 +1,13 @@
 .recent-activity {
-    background: rgb(236, 236, 236);
+    background: var(--primary-color);
     border-radius: 10px 2px 10px 2px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px var(--border-color);
     margin-bottom: 20px;
 }
 
 .activity-title {
-    color: var(--primary-color);
+    color: var(--light-color);
     margin-bottom: 20px;
     font-weight: 600;
 }
@@ -21,6 +21,10 @@
 
 .activity-item:last-child {
     border-bottom: none;
+}
+
+.no-activity{
+    color: var(--light-color);
 }
 
 .activity-icon {
@@ -42,16 +46,17 @@
 .activity-content h5 {
     margin: 0 0 5px;
     font-size: 16px;
+    color: var(--light-color);
 }
 
 .activity-content p {
     margin: 0;
-    color: #6c757d;
+    color: #dadada;
     font-size: 14px;
 }
 
 .activity-time {
-    color: #6c757d;
+    color: #dadada;
     font-size: 12px;
     margin-top: 5px;
 }
@@ -79,18 +84,22 @@
 
 .stat-card.pending {
     border-top: 4px solid var(--warning-color);
+    box-shadow: 0 0 10px var(--warning-color);
 }
 
 .stat-card.in-process {
     border-top: 4px solid var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
 }
 
 .stat-card.completed {
     border-top: 4px solid var(--success-color);
+    box-shadow: 0 0 10px var(--success-color);
 }
 
 .stat-card.denied {
     border-top: 4px solid var(--accent-color);
+    box-shadow: 0 0 10px var(--accent-color);
 }
 
 .stat-number {
@@ -111,16 +120,20 @@
 
 .pending .stat-icon {
     color: var(--warning-color);
+    text-shadow: 0 0 3px var(--warning-color);
 }
 
 .in-process .stat-icon {
     color: var(--secondary-color);
+    text-shadow: 0 0 3px var(--secondary-color);
 }
 
 .completed .stat-icon {
     color: var(--success-color);
+    text-shadow: 0 0 3px var(--success-color);
 }
 
 .denied .stat-icon {
     color: var(--accent-color);
+    text-shadow: 0 0 3px var(--accent-color);
 }

@@ -46,12 +46,8 @@ class RegistrarController {
     private function procesarRegistro() {
         // Recoger y sanitizar datos del formulario
         $remitente = mysqli_real_escape_string($this->db, $_POST['remitente']);
-        $tipo_persona = mysqli_real_escape_string($this->db, $_POST['tipoPersona']);
         $dependencia = mysqli_real_escape_string($this->db, $_POST['dependencia']);
         $numero_documento = isset($_POST['numeroDocumento']) ? mysqli_real_escape_string($this->db, $_POST['numeroDocumento']) : null;
-        $correo = mysqli_real_escape_string($this->db, $_POST['correo']);
-        $telefono = mysqli_real_escape_string($this->db, $_POST['telefono']);
-        $asunto = mysqli_real_escape_string($this->db, $_POST['asunto']);
         
         // Valores fijos
         $area_id = 1; // Valor fijo para area_id
@@ -78,8 +74,8 @@ class RegistrarController {
         }
         
         // Insertar en la base de datos
-        $insert_query = "INSERT INTO oficios (remitente, tipo_persona, dependencia, numero_documento, correo, telefono, asunto, archivo_nombre, archivo_ruta, area_id, usuario_id) 
-                        VALUES ('$remitente', '$tipo_persona', '$dependencia', '$numero_documento', '$correo', '$telefono', '$asunto', '$archivo_nombre', '$archivo_ruta2', '$area_id', '$usuario_id')";
+        $insert_query = "INSERT INTO oficios (remitente, dependencia, numero_documento, archivo_nombre, archivo_ruta, area_id, usuario_id) 
+                        VALUES ('$remitente', '$dependencia', '$numero_documento', '$archivo_nombre', '$archivo_ruta2', '$area_id', '$usuario_id')";
         
         if (mysqli_query($this->db, $insert_query)) {
             return ['mensaje' => "Oficio registrado correctamente.", 'tipo' => "success"];
@@ -89,7 +85,7 @@ class RegistrarController {
     }
     
     private function procesarArchivo() {
-        $directorio = "../uploads/";
+        $directorio = "uploads/";
         if (!file_exists($directorio)) {
             mkdir($directorio, 0777, true);
         }
