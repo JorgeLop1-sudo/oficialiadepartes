@@ -55,15 +55,10 @@
                         <label for="estado">Estado</label>
                         <select class="form-select" id="estado" name="estado">
                             <option value="">Todos los estados</option>
-
-                            <?php if ($_SESSION['tipo_usuario'] === 'Administrador'): ?>
+                            <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['id'] == '2'): ?>
                                 <option value="pendiente" <?php echo ($filtros['estado'] ?? '') == 'pendiente' ? 'selected' : ''; ?>>Pendiente</option>
-                                <option value="tramite" <?php echo ($filtros['estado'] ?? '') == 'tramite' ? 'selected' : ''; ?>>En tramite</option>
-                                <option value="completado" <?php echo ($filtros['estado'] ?? '') == 'completado' ? 'selected' : ''; ?>>Completado</option>
-                                <option value="denegado" <?php echo ($filtros['estado'] ?? '') == 'denegado' ? 'selected' : ''; ?>>Denegado</option>
                             <?php endif; ?>
-
-                            <?php if ($_SESSION['tipo_usuario'] === 'Usuario'): ?>
+                            <?php if ($_SESSION['tipo_usuario'] === 'Administrador' || $_SESSION['tipo_usuario'] === 'Usuario'): ?>
                                 <option value="tramite" <?php echo ($filtros['estado'] ?? '') == 'tramite' ? 'selected' : ''; ?>>En tramite</option>
                                 <option value="completado" <?php echo ($filtros['estado'] ?? '') == 'completado' ? 'selected' : ''; ?>>Completado</option>
                                 <option value="denegado" <?php echo ($filtros['estado'] ?? '') == 'denegado' ? 'selected' : ''; ?>>Denegado</option>
@@ -98,7 +93,7 @@
                                 <th>ID</th>
                                 <th>Fecha/Hora</th>
                                 <th>Remitente</th>
-                                <th>Asunto</th>
+                                <!--th>Asunto</th-->
                                 <th>Nro. Documento</th>
                                 <th>Estado de oficio</th>
                                 <th>Derivado a</th>
@@ -111,7 +106,7 @@
                                     <td><?php echo $expediente['id']; ?></td>
                                     <td><?php echo date('d/m/Y H:i', strtotime($expediente['fecha_registro'])); ?></td>
                                     <td><?php echo htmlspecialchars($expediente['remitente']); ?></td>
-                                    <td><?php echo htmlspecialchars($expediente['asunto']); ?></td>
+                                    <!--td><?php echo htmlspecialchars($expediente['asunto']); ?></td-->
                                     <td><?php echo htmlspecialchars($expediente['numero_documento'] ?? 'N/A'); ?></td>
                                     <td>
                                         <?php 
