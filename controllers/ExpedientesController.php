@@ -66,7 +66,10 @@ class ExpedientesController {
         // Procesar eliminación de oficio (solo admin)
         if (isset($_GET['eliminar']) && $tipo_usuario === 'Administrador') {
             $mensaje = $expedienteModel->eliminar($_GET['eliminar']);
-            header("Location: index.php?action=expedientes&mensaje=" . urlencode($mensaje));
+            
+            // Guardar mensaje en sesión y redirigir sin parámetros GET
+            $_SESSION['mensaje_temporal'] = $mensaje;
+            header("Location: index.php?action=expedientes");
             exit();
         }
 
@@ -80,11 +83,19 @@ class ExpedientesController {
             );
             
             if (strpos($mensaje, 'Error') === false) {
-                header("Location: index.php?action=expedientes&mensaje=" . urlencode($mensaje));
+                // Guardar mensaje en sesión y redirigir sin parámetros GET
+                $_SESSION['mensaje_temporal'] = $mensaje;
+                header("Location: index.php?action=expedientes");
                 exit();
             } else {
                 $error = $mensaje;
             }
+        }
+        
+        // Obtener mensaje de sesión si existe y luego limpiarlo
+        if (isset($_SESSION['mensaje_temporal'])) {
+            $mensaje = $_SESSION['mensaje_temporal'];
+            unset($_SESSION['mensaje_temporal']); // Limpiar después de usar
         }
         
         // Pasar variables a la vista

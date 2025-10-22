@@ -129,7 +129,7 @@ class Expediente {
         }
 
         // Registrar en el historial ANTES de actualizar
-        $this->registrarEnHistorial($oficio_actual, $area_derivada, $usuario_derivado, $respuesta);
+        //$this->registrarEnHistorial($oficio_actual, $area_derivada, $usuario_derivado, $respuesta);
 
         // Actualizar el oficio
         $update_query = "UPDATE oficios SET 
@@ -146,7 +146,7 @@ class Expediente {
     }
 
      // Método para registrar en el historial
-     private function registrarEnHistorial($oficio, $area_destino_id, $usuario_destino_id, $respuesta) {
+    /* private function registrarEnHistorial($oficio, $area_destino_id, $usuario_destino_id, $respuesta) {
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio['id']);
         $area_origen_id = mysqli_real_escape_string($this->conn, $oficio['area_id']);
         $usuario_origen_id = mysqli_real_escape_string($this->conn, $oficio['usuario_id']);
@@ -164,7 +164,7 @@ class Expediente {
                 )";
 
         return mysqli_query($this->conn, $query);
-    }
+    }*/
 
     public function obtenerUsuariosPorArea($area_id) {
         $usuarios = [];
@@ -200,7 +200,7 @@ class Expediente {
         }
 
         // Registrar respuesta en el historial
-        $this->registrarRespuestaEnHistorial($oficio_actual, $respuesta, $estado);
+        //$this->registrarRespuestaEnHistorial($oficio_actual, $respuesta, $estado);
         
         $update_query = "UPDATE oficios SET 
                         respuesta = '$respuesta',
@@ -221,7 +221,7 @@ class Expediente {
         }
     }
 
-    private function registrarRespuestaEnHistorial($oficio, $respuesta, $nuevo_estado) {
+    /*private function registrarRespuestaEnHistorial($oficio, $respuesta, $nuevo_estado) {
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio['id']);
         $area_origen_id = mysqli_real_escape_string($this->conn, $oficio['area_id']);
         $usuario_origen_id = mysqli_real_escape_string($this->conn, $oficio['usuario_id']);
@@ -236,7 +236,7 @@ class Expediente {
                 )";
 
         return mysqli_query($this->conn, $query);
-    }
+    }*/
     
 }
 ?>

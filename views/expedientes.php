@@ -38,6 +38,14 @@
             </div>
         <?php endif; ?>
 
+        <!-- Nuevo: Mostrar mensajes de sesión (eliminación, derivación, etc.) -->
+        <?php if (!empty($mensaje)): ?>
+            <div class="alert alert-<?php echo strpos($mensaje, 'Error') === false ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($mensaje); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
         <!-- Page Title -->
         <h3 class="page-title">Gestión de Expedientes</h3>
 
@@ -334,5 +342,6 @@
     </script>
 
 <script src="../oficialiadepartes/js/navbar.js"></script>
+<script src="../oficialiadepartes/js/msg.js"></script>
 </body>
 </html>
