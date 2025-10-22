@@ -32,7 +32,7 @@ body {
     align-items: center;
     justify-content: center;
     max-width: 1200px;
-    gap: 40px; /* Añadido: espacio entre imagen y formulario */
+    gap: 0px; /* Añadido: espacio entre imagen y formulario */
     margin: 0 auto; /* Añadido: centrar el contenedor completo */
 }
 
@@ -41,7 +41,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 100%;
+    max-width: 70%;
 }
 
 .imagen img {

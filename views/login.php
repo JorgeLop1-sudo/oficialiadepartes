@@ -19,8 +19,9 @@
 <body>
     <div class="all-login">
         <div class="imagen d-none d-lg-flex">
-            <img src="/oficialiadepartes/css/images/fondo-login.png" alt="logo">
+            <img src="/oficialiadepartes/css/images/fondo2.png" alt="logo">
         </div>
+        
         <div class="main-container">
             <?php include 'partials/headerinicio.php'; ?>
 
@@ -72,6 +73,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="imagen d-none d-lg-flex">
+            <img src="/oficialiadepartes/css/images/fondo1.png" alt="logo">
         </div>
     </div>
 
