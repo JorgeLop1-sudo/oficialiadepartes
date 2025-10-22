@@ -35,8 +35,25 @@ class RegistrarController {
         // Procesar formulario de registro de oficio
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resultado = $this->procesarRegistro();
-            $mensaje = $resultado['mensaje'];
-            $tipoMensaje = $resultado['tipo'];
+            
+            // Guardar mensaje en sesión y redirigir
+            $_SESSION['mensaje_registro'] = $resultado['mensaje'];
+            $_SESSION['tipo_mensaje_registro'] = $resultado['tipo'];
+            
+            // REDIRECCIÓN después del POST (PRG Pattern)
+            header('Location: index.php?action=registrar');
+            exit();
+        }
+
+        
+        // Recuperar mensajes de sesión si existen
+        if (isset($_SESSION['mensaje_registro'])) {
+            $mensaje = $_SESSION['mensaje_registro'];
+            $tipoMensaje = $_SESSION['tipo_mensaje_registro'];
+            
+            // Limpiar mensajes de sesión después de usarlos
+            unset($_SESSION['mensaje_registro']);
+            unset($_SESSION['tipo_mensaje_registro']);
         }
         
         // Cargar la vista
