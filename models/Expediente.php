@@ -51,7 +51,7 @@ class Expediente {
     }
 
     // Método para obtener el historial completo
-    public function obtenerHistorialDerivaciones($oficio_id) {
+    /*public function obtenerHistorialDerivaciones($oficio_id) {
         $historial = [];
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
         
@@ -86,7 +86,7 @@ class Expediente {
         }
         
         return $historial;
-    }
+    }*/
 
 
 

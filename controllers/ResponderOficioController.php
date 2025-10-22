@@ -36,7 +36,7 @@ class ResponderOficioController {
         }
 
         // Obtener historial de derivaciones
-        $historial_derivaciones = $expedienteModel->obtenerHistorialDerivaciones($oficio_id);
+        //$historial_derivaciones = $expedienteModel->obtenerHistorialDerivaciones($oficio_id);
 
         // Verificar permisos (solo el usuario asignado o admin puede responder)
         $puede_responder = $this->verificarPermisos($oficio, $_SESSION);
@@ -66,7 +66,7 @@ class ResponderOficioController {
         }
 
         // Pasar variables a la vista
-        $view_data = compact('oficio', 'historial_derivaciones', 'mensaje_error');
+        $view_data = compact('oficio', /*'historial_derivaciones', */'mensaje_error');
         extract($view_data);
 
         include __DIR__ . '/../views/responder.php';
