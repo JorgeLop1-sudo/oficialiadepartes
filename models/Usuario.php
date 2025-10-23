@@ -13,15 +13,15 @@ class Usuario {
         return is_string($hash) && strlen($hash) === 60 && (strpos($hash, '$2y$') === 0 || strpos($hash, '$2a$') === 0 || strpos($hash, '$2b$') === 0);
     }
 
-    public function getByUsuario($usuario) {
-        $stmt = $this->conn->prepare("SELECT * FROM login WHERE BINARY usuario = ? LIMIT 1");
+    public function getByUsuario($usuario) { 
+        $stmt = $this->conn->prepare("SELECT * FROM login WHERE BINARY usuario = ? AND `activo` = 1 LIMIT 1");
         $stmt->bind_param("s", $usuario);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
 
     public function getByEmail($email) {
-        $stmt = $this->conn->prepare("SELECT * FROM login WHERE BINARY email = ? LIMIT 1");
+        $stmt = $this->conn->prepare("SELECT * FROM login WHERE BINARY email = ? AND `activo` = 1 LIMIT 1");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();

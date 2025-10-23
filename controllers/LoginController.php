@@ -39,6 +39,8 @@ class LoginController {
                 
                 $this->redirectByUserType($user['tipo_usuario']);
             } else {
+                // Mensaje genérico por seguridad
+                $error = "Credenciales incorrectas o usuario inactivo";
                 $error = ($res['reason'] === 'not_found') ? 
                     (($login_type === 'email') ? "Correo no encontrado" : "Usuario no encontrado") : 
                     "Contraseña incorrecta";
