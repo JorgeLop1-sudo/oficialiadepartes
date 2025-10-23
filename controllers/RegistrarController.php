@@ -22,7 +22,7 @@ class RegistrarController {
         
         // Verificar si el usuario tiene permiso para acceder (guardia, admin, o user según necesites)
         $tipo_usuario = $_SESSION['tipo_usuario'] ?? '';
-        $usuarios_permitidos = ['Guardia']; // Ajusta según tus necesidades
+        $usuarios_permitidos = ['Guardia', 'Administrador']; // Ajusta según tus necesidades
         
         if (!in_array($tipo_usuario, $usuarios_permitidos)) {
             header('Location: index.php?action=homedash');
