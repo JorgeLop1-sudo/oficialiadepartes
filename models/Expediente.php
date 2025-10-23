@@ -92,7 +92,19 @@ class Expediente {
 
     public function obtenerPorId($id) {
         $id = mysqli_real_escape_string($this->conn, $id);
-        $query = "SELECT * FROM oficios WHERE id = '$id'";
+        $query = "
+            SELECT o.*, 
+                   a.nombre as area_nombre,
+                   u.nombre as usuario_nombre,
+                   ad.nombre as area_derivada_nombre,
+                   ud.nombre as usuario_derivado_nombre
+            FROM oficios o 
+            LEFT JOIN areas a ON o.area_id = a.id 
+            LEFT JOIN login u ON o.usuario_id = u.id
+            LEFT JOIN areas ad ON o.area_derivada_id = ad.id
+            LEFT JOIN login ud ON o.usuario_derivado_id = ud.id
+            WHERE o.id = '$id'
+        ";
         $result = mysqli_query($this->conn, $query);
         return $result && mysqli_num_rows($result) > 0 ? mysqli_fetch_assoc($result) : null;
     }

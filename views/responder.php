@@ -93,14 +93,35 @@
                             <span class="badge-estado <?php echo $badge_class; ?>"><?php echo $estado_texto; ?></span>
                         </span>
                     </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Área Origen:</span>
-                        <span class="detail-value"><?php echo htmlspecialchars($oficio['nombre'] ?? 'N/A'); ?></span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Usuario Origen:</span>
-                        <span class="detail-value"><?php echo htmlspecialchars($oficio['usuario_nombre'] ?? 'N/A'); ?></span>
-                    </div>
+                    <!-- En la sección de detalles del oficio, modifica estas líneas: -->
+<div class="detail-row">
+    <span class="detail-label">Área Origen:</span>
+    <span class="detail-value">
+        <?php 
+        // Obtener el nombre del área origen
+        $area_origen_nombre = "N/A";
+        if (!empty($oficio['area_id'])) {
+            // Aquí deberías tener un método para obtener el nombre del área por ID
+            // O si ya viene en los datos del oficio, usarlo directamente
+            $area_origen_nombre = htmlspecialchars($oficio['area_nombre'] ?? 'Área ' . $oficio['area_id']);
+        }
+        echo $area_origen_nombre;
+        ?>
+    </span>
+</div>
+<div class="detail-row">
+    <span class="detail-label">Usuario Origen:</span>
+    <span class="detail-value">
+        <?php 
+        // Obtener el nombre del usuario origen
+        $usuario_origen_nombre = "N/A";
+        if (!empty($oficio['usuario_id'])) {
+            $usuario_origen_nombre = htmlspecialchars($oficio['usuario_nombre'] ?? 'Usuario ' . $oficio['usuario_id']);
+        }
+        echo $usuario_origen_nombre;
+        ?>
+    </span>
+</div>
                 </div>
                 <div class="col-md-6">
                     

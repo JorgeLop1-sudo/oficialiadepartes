@@ -19,6 +19,19 @@ class RegistrarController {
             header('Location: index.php?action=login');
             exit();
         }
+
+        // Verificar que la sesión tenga area_id
+    if (!isset($_SESSION['area_id'])) {
+        // Si no tiene area_id, obtenerlo de la base de datos
+        $user_id = $_SESSION['usuario_id'];
+        $query = mysqli_query($this->db, "SELECT area_id FROM login WHERE id = '$user_id'");
+        if ($query && mysqli_num_rows($query) > 0) {
+            $user_data = mysqli_fetch_assoc($query);
+            $_SESSION['area_id'] = $user_data['area_id'];
+        } else {
+            $_SESSION['area_id'] = null;
+        }
+    }
         
         // Verificar si el usuario tiene permiso para acceder (guardia, admin, o user según necesites)
         $tipo_usuario = $_SESSION['tipo_usuario'] ?? '';
@@ -91,9 +104,9 @@ class RegistrarController {
             return ['mensaje' => "Error: El área o usuario destino no existen", 'tipo' => "error"];
         }
         
-        // Valores fijos para área y usuario de registro (como los tenías originalmente)
-        $area_id = 3; // Valor fijo para area_id (Caseta)
-        $usuario_id = $_SESSION['usuario_id']; // Usar el ID del usuario logueado
+        // CAMBIO: Usar área y usuario de la sesión actual en lugar de valores fijos
+        $area_id = $_SESSION['area_id']; // Área del usuario logueado
+        $usuario_id = $_SESSION['usuario_id']; // Usuario logueado
         
         // Valores fijos para derivación (como los tenías originalmente)
         $area_derivada_id = 2; // Recepción
