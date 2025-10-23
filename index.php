@@ -10,6 +10,7 @@ require_once __DIR__ . '/controllers/ConfigController.php';
 require_once __DIR__ . '/controllers/RegistrarController.php';
 require_once __DIR__ . '/controllers/BuscarController.php';
 require_once __DIR__ . '/controllers/ResponderOficioController.php';
+require_once __DIR__ . '/controllers/HistorialController.php';
 
 $action = $_GET['action'] ?? 'login';
 
@@ -46,6 +47,9 @@ switch($action){
         break;
     case 'config':
         (new ConfigController())->config();
+        break;
+    case 'historial':
+        (new HistorialController())->historial();
         break;
     
     default:
