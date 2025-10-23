@@ -61,11 +61,16 @@ class User {
             }
         }
     
-        // Verificar si el correo ya existe
+        // VERIFICACIÓN MODIFICADA: Verificar si el correo ya existe (incluyendo inactivos)
         if (!empty($email)) {
-            $check_query = mysqli_query($this->conn, "SELECT * FROM login WHERE email = '$email' AND activo = 1");
+            $check_query = mysqli_query($this->conn, "SELECT * FROM login WHERE email = '$email'");
             if (mysqli_num_rows($check_query) > 0) {
-                return "Error: El correo electrónico ya está registrado";
+                $existing_email = mysqli_fetch_assoc($check_query);
+                if ($existing_email['activo'] == 1) {
+                    return "Error: El correo electrónico ya está registrado";
+                } else {
+                    return "Error: El correo electrónico '$email' no está disponible (usuario inactivo)";
+                }
             }
         }
     
@@ -121,17 +126,27 @@ class User {
         // Manejar area_id NULL
         $area_id_value = ($area_id === null || $area_id === '') ? 'NULL' : "'" . mysqli_real_escape_string($this->conn, $area_id) . "'";
     
-        // Verificar si el usuario ya existe (excluyendo el actual)
-        $check_user_query = mysqli_query($this->conn, "SELECT * FROM login WHERE usuario = '$usuario' AND id != '$id' AND activo = 1");
+        // VERIFICACIÓN MODIFICADA: Verificar si el usuario ya existe (incluyendo inactivos, excluyendo el actual)
+        $check_user_query = mysqli_query($this->conn, "SELECT * FROM login WHERE usuario = '$usuario' AND id != '$id'");
         if (mysqli_num_rows($check_user_query) > 0) {
-            return "Error: El nombre de usuario ya existe";
+            $existing_user = mysqli_fetch_assoc($check_user_query);
+            if ($existing_user['activo'] == 1) {
+                return "Error: El nombre de usuario ya existe";
+            } else {
+                return "Error: El nombre de usuario '$usuario' no está disponible (usuario inactivo)";
+            }
         }
     
-        // Verificar si el correo ya existe (excluyendo el actual)
+        // VERIFICACIÓN MODIFICADA: Verificar si el correo ya existe (incluyendo inactivos, excluyendo el actual)
         if (!empty($email)) {
-            $check_email_query = mysqli_query($this->conn, "SELECT * FROM login WHERE email = '$email' AND id != '$id' AND activo = 1");
+            $check_email_query = mysqli_query($this->conn, "SELECT * FROM login WHERE email = '$email' AND id != '$id'");
             if (mysqli_num_rows($check_email_query) > 0) {
-                return "Error: El correo electrónico ya está registrado";
+                $existing_email = mysqli_fetch_assoc($check_email_query);
+                if ($existing_email['activo'] == 1) {
+                    return "Error: El correo electrónico ya está registrado";
+                } else {
+                    return "Error: El correo electrónico '$email' no está disponible (usuario inactivo)";
+                }
             }
         }
     
