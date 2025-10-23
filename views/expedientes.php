@@ -255,7 +255,7 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="respuesta" class="form-label">Respuesta/Comentario</label>
+                            <label for="respuesta" class="form-label">Comentarios</label>
                             <textarea class="form-control" id="respuesta" name="respuesta" rows="4" placeholder="Ingrese una respuesta o comentario sobre este oficio"></textarea>
                         </div>
                     </div>
