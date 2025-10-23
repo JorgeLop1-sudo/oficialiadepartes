@@ -104,6 +104,10 @@
                                 <!--th>Asunto</th-->
                                 <th>Nro. Documento</th>
                                 <th>Estado de oficio</th>
+                                <?php if ($tipo_usuario === 'Administrador' || $_SESSION['id']==2): ?>
+                                    <th>Área Destino</th>
+                                    <th>Usuario Destino</th>
+                                <?php endif; ?>
                                 <th>Derivado a</th>
                                 <th>Acciones</th>
                             </tr>
@@ -143,11 +147,21 @@
                                         ?>
                                         <span class="badge-estado <?php echo $badge_class; ?>"><?php echo $estado_texto; ?></span>
                                     </td>
+                                    <?php if ($tipo_usuario === 'Administrador' || $_SESSION['id']==2): ?>
+                                        <td><?php echo htmlspecialchars($expediente['area_destino'] ?? 'N/A'); ?></td>
+                                        <td><?php echo htmlspecialchars($expediente['usuario_destino'] ?? 'N/A'); ?></td>
+                                    <?php endif; ?>
                                     <td>
                                         <?php if (!empty($expediente['area_derivada_nombre'])): ?>
                                             <div><strong>Área:</strong> <?php echo htmlspecialchars($expediente['area_derivada_nombre']); ?></div>
                                             <?php if (!empty($expediente['usuario_derivado_nombre'])): ?>
-                                                <div><strong>Usuario:</strong> <?php echo htmlspecialchars($expediente['usuario_derivado_nombre']); ?></div>
+                                                <?php 
+                                                // Verificar si el usuario derivado es el mismo que el usuario actual de la sesión
+                                                $nombre_usuario = ($expediente['usuario_derivado_id'] == $_SESSION['id']) 
+                                                    ? 'Tú' 
+                                                    : htmlspecialchars($expediente['usuario_derivado_nombre']);
+                                                ?>
+                                                <div><strong>Usuario:</strong> <?php echo $nombre_usuario; ?></div>
                                             <?php endif; ?>
                                             <?php if (!empty($expediente['fecha_derivacion'])): ?>
                                                 <div class="info-derivacion">

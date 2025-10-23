@@ -32,6 +32,10 @@ class RegistrarController {
         $mensaje = "";
         $tipoMensaje = "";
         
+        // Obtener áreas para el select
+        $areaModel = new Area($this->db);
+        $areas = $areaModel->obtenerTodasActivas();
+        
         // Procesar formulario de registro de oficio
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resultado = $this->procesarRegistro();
@@ -56,6 +60,10 @@ class RegistrarController {
             unset($_SESSION['tipo_mensaje_registro']);
         }
         
+        // Pasar áreas a la vista
+        $view_data = compact('mensaje', 'tipoMensaje', 'areas');
+        extract($view_data);
+        
         // Cargar la vista
         require_once __DIR__ . '/../views/registrar.php';
     }
@@ -66,16 +74,41 @@ class RegistrarController {
         $dependencia = mysqli_real_escape_string($this->db, $_POST['dependencia']);
         $numero_documento = isset($_POST['numeroDocumento']) ? mysqli_real_escape_string($this->db, $_POST['numeroDocumento']) : null;
         
-        $area_derivada_id=2;
-        $usuario_derivado_id=2;
-        // Valores fijos
-        $area_id = 3; // Valor fijo para area_id
+        // Obtener área y usuario destino del formulario
+        $area_destino_id = isset($_POST['area_derivada']) ? intval($_POST['area_derivada']) : null;
+        $usuario_destino_id = isset($_POST['usuario_derivado']) ? intval($_POST['usuario_derivado']) : null;
+        
+        // Validar que se hayan seleccionado área y usuario destino
+        if (!$area_destino_id || !$usuario_destino_id) {
+            return ['mensaje' => "Error: Debe seleccionar un área y usuario destino", 'tipo' => "error"];
+        }
+        
+        // Obtener los nombres del área y usuario destino
+        $area_destino_nombre = $this->obtenerNombreArea($area_destino_id);
+        $usuario_destino_nombre = $this->obtenerNombreUsuario($usuario_destino_id);
+        
+        if (!$area_destino_nombre || !$usuario_destino_nombre) {
+            return ['mensaje' => "Error: El área o usuario destino no existen", 'tipo' => "error"];
+        }
+        
+        // Valores fijos para área y usuario de registro (como los tenías originalmente)
+        $area_id = 3; // Valor fijo para area_id (Caseta)
         $usuario_id = $_SESSION['usuario_id']; // Usar el ID del usuario logueado
         
-        // Verificar si el área existe
-        $query_area_check = mysqli_query($this->db, "SELECT id FROM areas WHERE id = '$area_id'");
+        // Valores fijos para derivación (como los tenías originalmente)
+        $area_derivada_id = 2; // Recepción
+        $usuario_derivado_id = 2; // Juanita
+        
+        // Verificar si el área destino existe
+        $query_area_check = mysqli_query($this->db, "SELECT id FROM areas WHERE id = '$area_destino_id'");
         if (mysqli_num_rows($query_area_check) === 0) {
-            return ['mensaje' => "Error: El área seleccionada no es válida", 'tipo' => "error"];
+            return ['mensaje' => "Error: El área de destino seleccionada no es válida", 'tipo' => "error"];
+        }
+        
+        // Verificar si el usuario destino existe
+        $query_usuario_check = mysqli_query($this->db, "SELECT id FROM login WHERE id = '$usuario_destino_id' AND area_id = '$area_destino_id'");
+        if (mysqli_num_rows($query_usuario_check) === 0) {
+            return ['mensaje' => "Error: El usuario de destino no es válido o no pertenece al área seleccionada", 'tipo' => "error"];
         }
         
         // Procesar archivo subido
@@ -92,15 +125,40 @@ class RegistrarController {
             $archivo_ruta2 = $resultado_archivo['ruta'];
         }
         
-        // Insertar en la base de datos
-        $insert_query = "INSERT INTO oficios (remitente, dependencia, numero_documento, archivo_nombre, archivo_ruta, area_derivada_id, usuario_derivado_id, area_id, usuario_id) 
-                        VALUES ('$remitente', '$dependencia', '$numero_documento', '$archivo_nombre', '$archivo_ruta2', '$area_derivada_id', '$usuario_derivado_id', '$area_id', '$usuario_id')";
+        // Insertar en la base de datos con los nuevos campos
+        $insert_query = "INSERT INTO oficios (
+                        remitente, dependencia, numero_documento, archivo_nombre, archivo_ruta, 
+                        area_derivada_id, usuario_derivado_id, area_id, usuario_id,
+                        area_destino, usuario_destino
+                    ) VALUES (
+                        '$remitente', '$dependencia', '$numero_documento', '$archivo_nombre', '$archivo_ruta2', 
+                        '$area_derivada_id', '$usuario_derivado_id', '$area_id', '$usuario_id',
+                        '$area_destino_nombre', '$usuario_destino_nombre'
+                    )";
         
         if (mysqli_query($this->db, $insert_query)) {
             return ['mensaje' => "Oficio registrado correctamente.", 'tipo' => "success"];
         } else {
             return ['mensaje' => "Error al registrar el oficio: " . mysqli_error($this->db), 'tipo' => "error"];
         }
+    }
+    
+    private function obtenerNombreArea($area_id) {
+        $query = mysqli_query($this->db, "SELECT nombre FROM areas WHERE id = '$area_id'");
+        if ($query && mysqli_num_rows($query) > 0) {
+            $row = mysqli_fetch_assoc($query);
+            return $row['nombre'];
+        }
+        return null;
+    }
+    
+    private function obtenerNombreUsuario($usuario_id) {
+        $query = mysqli_query($this->db, "SELECT nombre FROM login WHERE id = '$usuario_id'");
+        if ($query && mysqli_num_rows($query) > 0) {
+            $row = mysqli_fetch_assoc($query);
+            return $row['nombre'];
+        }
+        return null;
     }
     
     private function procesarArchivo() {
