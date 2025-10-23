@@ -43,10 +43,10 @@
             
             <div class="row">
                 <div class="col-md-6">
-                    <div class="detail-row">
+                    <!--div class="detail-row">
                         <span class="detail-label">ID:</span>
                         <span class="detail-value"><?php echo $oficio['id']; ?></span>
-                    </div>
+                    </div-->
                     <div class="detail-row">
                         <span class="detail-label">Fecha de Registro:</span>
                         <span class="detail-value"><?php echo date('d/m/Y H:i', strtotime($oficio['fecha_registro'])); ?></span>
@@ -55,12 +55,10 @@
                         <span class="detail-label">Remitente:</span>
                         <span class="detail-value"><?php echo htmlspecialchars($oficio['remitente']); ?></span>
                     </div>
-                    <div class="detail-row">
+                    <!--div class="detail-row">
                         <span class="detail-label">Asunto:</span>
                         <span class="detail-value"><?php echo htmlspecialchars($oficio['asunto']); ?></span>
-                    </div>
-                </div>
-                <div class="col-md-6">
+                    </div-->
                     <div class="detail-row">
                         <span class="detail-label">Número de Documento:</span>
                         <span class="detail-value"><?php echo htmlspecialchars($oficio['numero_documento'] ?? 'N/A'); ?></span>
@@ -97,12 +95,15 @@
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Área Origen:</span>
-                        <span class="detail-value"><?php echo htmlspecialchars($oficio['area_nombre'] ?? 'N/A'); ?></span>
+                        <span class="detail-value"><?php echo htmlspecialchars($oficio['nombre'] ?? 'N/A'); ?></span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Usuario Origen:</span>
                         <span class="detail-value"><?php echo htmlspecialchars($oficio['usuario_nombre'] ?? 'N/A'); ?></span>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    
                 </div>
             </div>
             
@@ -129,7 +130,7 @@
                 <div class="row mt-3">
                     <div class="col-12">
                         <div class="detail-row">
-                            <span class="detail-label">Respuesta Anterior:</span>
+                            <span class="detail-label">Comentarios:</span>
                             <span class="detail-value"><?php echo nl2br(htmlspecialchars($oficio['respuesta'])); ?></span>
                         </div>
                     </div>
