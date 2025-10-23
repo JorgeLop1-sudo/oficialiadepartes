@@ -6,6 +6,7 @@ class User {
         $this->conn = $db;
     }
 
+    // Asegurarte de que el método obtenerTodos solo traiga usuarios activos
     public function obtenerTodos() {
         $usuarios = [];
         $query = "
@@ -168,6 +169,27 @@ class User {
         } else {
             return "Error al desactivar usuario: " . mysqli_error($this->conn);
         }
+    }
+
+    public function obtenerUsuariosActivosPorArea($area_id) {
+        $area_id = mysqli_real_escape_string($this->conn, $area_id);
+        
+        $usuarios = [];
+        $sql = "SELECT id, usuario, nombre, tipo_usuario
+                FROM login 
+                WHERE area_id = '$area_id' 
+                AND activo = 1 
+                ORDER BY nombre ASC";
+        
+        $result = mysqli_query($this->conn, $sql);
+        
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $usuarios[] = $row;
+            }
+        }
+        
+        return $usuarios;
     }
 }
 ?>

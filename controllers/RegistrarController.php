@@ -106,7 +106,7 @@ class RegistrarController {
         }
         
         // Verificar si el usuario destino existe
-        $query_usuario_check = mysqli_query($this->db, "SELECT id FROM login WHERE id = '$usuario_destino_id' AND area_id = '$area_destino_id'");
+        $query_usuario_check = mysqli_query($this->db, "SELECT id FROM login WHERE id = '$usuario_destino_id' AND area_id = '$area_destino_id' AND activo=1");
         if (mysqli_num_rows($query_usuario_check) === 0) {
             return ['mensaje' => "Error: El usuario de destino no es válido o no pertenece al área seleccionada", 'tipo' => "error"];
         }

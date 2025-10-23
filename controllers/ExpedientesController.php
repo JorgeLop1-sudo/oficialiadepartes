@@ -38,11 +38,11 @@ class ExpedientesController {
         $usuario_id = $_SESSION['id'] ?? null;
         $tipo_usuario = $_SESSION['tipo_usuario'] ?? 'Usuario';
 
-        // Manejar solicitud AJAX para usuarios por área
+        // En el método expedientes(), verificar que se esté usando el método correcto
         if (isset($_GET['ajax']) && $_GET['ajax'] == 'usuarios_por_area' && isset($_GET['area_id'])) {
             $area_id = intval($_GET['area_id']);
-            $usuarios_filtrados = $expedienteModel->obtenerUsuariosPorArea($area_id);
-            
+            // En ExpedientesController y RegistrarController, cambiar:
+            $usuarios_filtrados = $userModel->obtenerUsuariosActivosPorArea($area_id);            
             header('Content-Type: application/json');
             echo json_encode(['success' => true, 'usuarios' => $usuarios_filtrados]);
             exit();

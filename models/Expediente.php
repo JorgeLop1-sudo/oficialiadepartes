@@ -167,17 +167,21 @@ class Expediente {
     }*/
 
     public function obtenerUsuariosPorArea($area_id) {
-        $usuarios = [];
         $area_id = mysqli_real_escape_string($this->conn, $area_id);
         
-        if ($area_id > 0) {
-            $query = "SELECT id, nombre, usuario FROM login WHERE area_id = $area_id ORDER BY nombre";
-            $result = mysqli_query($this->conn, $query);
-            
-            if ($result) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $usuarios[] = $row;
-                }
+        $usuarios = [];
+        $sql = "SELECT id, usuario, nombre 
+                FROM login 
+                WHERE area_id = '$area_id' 
+                AND activo = 1 
+                AND tipo_usuario != 'Guardia'  -- Opcional: excluir guardias si no deben aparecer
+                ORDER BY nombre ASC";
+        
+        $result = mysqli_query($this->conn, $sql);
+        
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $usuarios[] = $row;
             }
         }
         
