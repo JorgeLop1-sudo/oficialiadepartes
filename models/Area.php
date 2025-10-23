@@ -52,28 +52,60 @@ class Area {
     public function crear($nombre, $descripcion) {
         $nombre = mysqli_real_escape_string($this->conn, $nombre);
         $descripcion = mysqli_real_escape_string($this->conn, $descripcion);
-
+    
+        // Verificar solo en áreas activas
         $check = mysqli_query($this->conn, "SELECT * FROM areas WHERE nombre = '$nombre' AND activo = 1");
         if (mysqli_num_rows($check) > 0) {
             return "Error: El área ya existe";
         }
-
+    
+        // Si existe una área inactiva con el mismo nombre, reactivarla
+        $check_inactiva = mysqli_query($this->conn, "SELECT * FROM areas WHERE nombre = '$nombre' AND activo = 0");
+        if (mysqli_num_rows($check_inactiva) > 0) {
+            $area_inactiva = mysqli_fetch_assoc($check_inactiva);
+            $sql = "UPDATE areas SET activo = 1, descripcion = '$descripcion', fecha_creacion = CURRENT_TIMESTAMP WHERE id = " . $area_inactiva['id'];
+            return mysqli_query($this->conn, $sql) 
+                ? "Área reactivada exitosamente" 
+                : "Error al reactivar área: " . mysqli_error($this->conn);
+        }
+    
+        // Crear nueva área
         $sql = "INSERT INTO areas (nombre, descripcion) VALUES ('$nombre', '$descripcion')";
-        return mysqli_query($this->conn, $sql) ? "Área creada exitosamente" : "Error al crear área: " . mysqli_error($this->conn);
+        return mysqli_query($this->conn, $sql) 
+            ? "Área creada exitosamente" 
+            : "Error al crear área: " . mysqli_error($this->conn);
     }
 
     public function actualizar($id, $nombre, $descripcion, $nombre_anterior) {
         $id = mysqli_real_escape_string($this->conn, $id);
-        $nombre = mysqli_real_escape_string($this->conn, $nombre);
-        $descripcion = mysqli_real_escape_string($this->conn, $descripcion);
-        $nombre_anterior = mysqli_real_escape_string($this->conn, $nombre_anterior);
-
+        $nombre = mysqli_real_escape_string($this->conn, trim($nombre));
+        $descripcion = mysqli_real_escape_string($this->conn, trim($descripcion));
+        $nombre_anterior = mysqli_real_escape_string($this->conn, trim($nombre_anterior));
+    
+        // Si el nombre cambió, verificar que no exista ninguna área (activa o inactiva) con el nuevo nombre
+        if ($nombre !== $nombre_anterior) {
+            $check = mysqli_query($this->conn, "SELECT * FROM areas WHERE nombre = '$nombre' AND id != '$id'");
+            if (mysqli_num_rows($check) > 0) {
+                $area_existente = mysqli_fetch_assoc($check);
+                if ($area_existente['activo'] == 1) {
+                    return "Error: Ya existe otra área activa con el nombre '$nombre'";
+                } else {
+                    return "Error: El nombre '$nombre' no es posible, intenta creando una con el mismo nombre para reactivación.";
+                }
+            }
+        }
+    
         $sql = "UPDATE areas SET nombre = '$nombre', descripcion = '$descripcion' WHERE id = '$id' AND activo = 1";
+        
         if (mysqli_query($this->conn, $sql)) {
-            mysqli_query($this->conn, "UPDATE login SET area_id = '$id' 
-                                       WHERE area_id IN (SELECT id FROM areas WHERE nombre = '$nombre_anterior' AND activo = 1)");
-            return "Área actualizada exitosamente y usuarios migrados";
+            // Actualizar la referencia en los usuarios
+            mysqli_query($this->conn, "UPDATE login SET area_id = '$id' WHERE area_id IN (SELECT id FROM areas WHERE nombre = '$nombre_anterior' AND activo = 1)");
+            return "Área actualizada exitosamente";
         } else {
+            // Manejar error de duplicado de MySQL
+            if (mysqli_errno($this->conn) == 1062) {
+                return "Error: El nombre '$nombre' no es posible, intenta creando una con el mismo nombre para reactivación.";
+            }
             return "Error al actualizar área: " . mysqli_error($this->conn);
         }
     }

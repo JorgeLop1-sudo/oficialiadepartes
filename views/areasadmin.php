@@ -208,7 +208,7 @@
     
     <script>
         function confirmarEliminacion(id, nombre) {
-            if (confirm(`¿Estás seguro de eliminar el área "${nombre}"? Esta acción no se puede deshacer.`)) {
+            if (confirm(`¿Estás seguro de eliminar el área "${nombre}"?`)) {
                 window.location.href = `index.php?action=areasadmin&eliminar=${id}`;
             }
         }
