@@ -96,7 +96,7 @@
 /* Estilos para pantallas más pequeñas */
 @media (max-width: 991px) {
     .config-section {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.0rem;
     }
 }
         
