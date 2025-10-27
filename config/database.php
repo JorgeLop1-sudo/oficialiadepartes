@@ -1,4 +1,5 @@
 <?php
+
 class Database {
     private $host = "localhost";
     private $user = "root";
@@ -14,4 +15,5 @@ class Database {
         return $conn;
     }
 }
+
 ?>
