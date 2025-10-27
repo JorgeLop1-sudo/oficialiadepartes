@@ -26,7 +26,7 @@
     <?php include 'partials/header.php'; ?>
 
     <!-- Page Title -->
-    <div class="page-header">
+    <!--div class="page-header">
         <h3 class="page-title">
             <?php if ($info_oficio): ?>
                 Historial de Derivaciones - Oficio #<?php echo $info_oficio['id']; ?>
@@ -41,7 +41,7 @@
                 Selecciona un oficio desde la gestión de expedientes para ver su historial completo.
             </div>
         <?php endif; ?>
-    </div>
+    </div-->
 
     <?php if ($info_oficio): ?>
         <!-- Información del Oficio -->
