@@ -1,10 +1,47 @@
-        .config-section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: #fff;
-            border-radius: 10px 0 10px 0;
-            box-shadow: 0 4px 6px var(--border-color);
-        }
+.config-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 10px 0 10px 0;
+    box-shadow: 0 4px 6px var(--border-color);
+    transition: all 0.3s ease;
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 992px) {
+    .config-sections-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        align-items: start;
+    }
+    
+    .config-section {
+        margin-bottom: 0;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .config-section h4 {
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .config-section .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .config-section .row {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Ajustar botones para que queden alineados en la parte inferior */
+    .sectionbutton {
+        margin-top: auto;
+        padding-top: 1rem;
+    }
+}
 
         .password-feedback, .user-feedback {
             display: none;
@@ -15,6 +52,7 @@
 
         .form-group {
             margin-bottom: 1.2rem;
+            position: relative;
         }
 
         .required-field::after {
@@ -27,29 +65,39 @@
         }
         
 
-        /* Estilos para el campo de contraseña con botón de mostrar/ocultar */
+        /* Estilos para el campo de contraseña con botón de mostrar/ocultar 
         .form-group {
             position: relative;
-        }
+        }*/
 
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 70%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #6c757d;
-            cursor: pointer;
-            padding: 0;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* Estilos para el campo de contraseña con botón de mostrar/ocultar */
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 70%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .toggle-password:hover {
-            color: var(--secondary-color);
-        }
+.toggle-password:hover {
+    color: var(--secondary-color);
+}
+
+
+/* Estilos para pantallas más pequeñas */
+@media (max-width: 991px) {
+    .config-section {
+        margin-bottom: 1.5rem;
+    }
+}
+        
         

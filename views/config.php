@@ -29,112 +29,117 @@
         <!-- Page Title -->
         <h3 class="page-title">Configuración del Sistema</h3>
 
-        <!-- User Configuration Section -->
-        <div class="config-section">
-            <h4 class="mb-4"><i class="fas fa-user me-2"></i>Configuración de Usuario</h4>
-            
-            <div class="alert user-feedback" id="userFeedback"></div>
-            
-            <form id="userDataForm" method="POST">
-                <input type="hidden" name="action" value="update_user">
-                <input type="hidden" name="user_id" value="<?php echo $usuario_actual['id']; ?>">
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="nombre" class="required-field">Nombre completo</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" 
-                                   value="<?php echo htmlspecialchars($usuario_actual['nombre']); ?>" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="usuario" class="required-field">Nombre de usuario</label>
-                            <input type="text" class="form-control" id="usuario" name="usuario" 
-                                   value="<?php echo htmlspecialchars($usuario_actual['usuario']); ?>" required>
-                            <small class="form-text">Este nombre será usado para iniciar sesión</small>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="area">Área asignada</label>
-                                <input type="text" class="form-control" id="area" name="area" disabled
-                                    value="<?php echo htmlspecialchars($usuario_actual['area_nombre'] ?? 'Sin área asignada'); ?>">
-                            <small class="form-text">El área no puede ser modificada desde aquí</small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="email" class="required-field">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" 
-                                   value="<?php echo htmlspecialchars($usuario_actual['email']); ?>" required>
-                        </div>
-                        <div class="sectionbutton">
-                            <button type="submit" class="btn-action">
-                                <i class="fas fa-save me-1"></i> Guardar cambios
-                            </button>
-                        </div>
-                    </div>     
-                </div>
-                
-            </form>
-        </div>
+        <div class="config-sections-container">
 
-        <!-- Password Change Section -->
-        <div class="config-section">
-            <h4 class="mb-4"><i class="fas fa-lock me-2"></i>Cambiar Contraseña</h4>
-            
-            <div class="alert password-feedback" id="passwordFeedback"></div>
-            
-            <form id="passwordForm" method="POST">
-                <input type="hidden" name="action" value="update_password">
-                <input type="hidden" name="user_id" value="<?php echo $usuario_actual['id']; ?>">
+            <!-- User Configuration Section -->
+            <div class="config-section">
+                <h4 class="mb-4"><i class="fas fa-user me-2"></i>Configuración de Usuario</h4>
                 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="currentPassword" class="required-field">Contraseña actual</label>
-                            <input type="password" class="form-control" id="currentPassword" data-toggle="currentPassword" name="currentPassword" required>
-                            <button type="button" class="toggle-password" data-target="currentPassword" id="togglePassword1">
-                            <i class="fas fa-eye"></i>
-                        
-                        </button>
+                <div class="alert user-feedback" id="userFeedback"></div>
+                
+                <form id="userDataForm" method="POST">
+                    <input type="hidden" name="action" value="update_user">
+                    <input type="hidden" name="user_id" value="<?php echo $usuario_actual['id']; ?>">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre" class="required-field">Nombre completo</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" 
+                                    value="<?php echo htmlspecialchars($usuario_actual['nombre']); ?>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="usuario" class="required-field">Nombre de usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" 
+                                    value="<?php echo htmlspecialchars($usuario_actual['usuario']); ?>" required>
+                                <small class="form-text">Este nombre será usado para iniciar sesión</small>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="area">Área asignada</label>
+                                    <input type="text" class="form-control" id="area" name="area" disabled
+                                        value="<?php echo htmlspecialchars($usuario_actual['area_nombre'] ?? 'Sin área asignada'); ?>">
+                                <small class="form-text">El área no puede ser modificada desde aquí</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="required-field">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                    value="<?php echo htmlspecialchars($usuario_actual['email']); ?>" required>
+                            </div>
+                            <div class="sectionbutton">
+                                <button type="submit" class="btn-action">
+                                    <i class="fas fa-save me-1"></i> Guardar cambios
+                                </button>
+                            </div>
+                        </div>     
+                    </div>
+                    
+                </form>
+            </div>
+
+            <!-- Password Change Section -->
+            <div class="config-section">
+                <h4 class="mb-4"><i class="fas fa-lock me-2"></i>Cambiar Contraseña</h4>
                 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="newPassword" class="required-field">Nueva contraseña</label>
-                            <input type="password" class="form-control" id="newPassword" data-toggle="newPassword" name="newPassword" required>
-                            <button type="button" class="toggle-password" data-target="newPassword" id="togglePassword2">
+                <div class="alert password-feedback" id="passwordFeedback"></div>
+                
+                <form id="passwordForm" method="POST">
+                    <input type="hidden" name="action" value="update_password">
+                    <input type="hidden" name="user_id" value="<?php echo $usuario_actual['id']; ?>">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="currentPassword" class="required-field">Contraseña actual</label>
+                                <input type="password" class="form-control" id="currentPassword" data-toggle="currentPassword" name="currentPassword" required>
+                                <button type="button" class="toggle-password" data-target="currentPassword" id="togglePassword1">
+                                <i class="fas fa-eye"></i>
+                            
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="newPassword" class="required-field">Nueva contraseña</label>
+                                <input type="password" class="form-control" id="newPassword" data-toggle="newPassword" name="newPassword" required>
+                                <button type="button" class="toggle-password" data-target="newPassword" id="togglePassword2">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <small class="form-text">Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números</small>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="confirmPassword" class="required-field">Confirmar nueva contraseña</label>
+                                <input type="password" class="form-control" id="confirmPassword" data-toggle="confirmPassword" name="confirmPassword" required>
+                                <button type="button" class="toggle-password" data-target="confirmPassword" id="togglePassword3">
                                 <i class="fas fa-eye"></i>
                             </button>
-                        </div>
-                        <small class="form-text">Mínimo 8 caracteres, incluir mayúsculas, minúsculas y números</small>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="confirmPassword" class="required-field">Confirmar nueva contraseña</label>
-                            <input type="password" class="form-control" id="confirmPassword" data-toggle="confirmPassword" name="confirmPassword" required>
-                            <button type="button" class="toggle-password" data-target="confirmPassword" id="togglePassword3">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        </div>
-                        <div class="sectionbutton">
-                            <button type="submit" class="btn-action">
-                                <i class="fas fa-key me-1"></i> Cambiar contraseña
-                            </button>
+                            </div>
+                            <div class="sectionbutton">
+                                <button type="submit" class="btn-action">
+                                    <i class="fas fa-key me-1"></i> Cambiar contraseña
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-            </form>
+                    
+                </form>
+            </div>
+
         </div>
+
     </div>
 
     <!-- Scripts -->
