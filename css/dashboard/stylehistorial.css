@@ -120,6 +120,21 @@
     font-weight: 600;
 }
 
+.badge-registro {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.accion-info, .destino-info {
+    margin-bottom: 10px;
+}
+
+.accion-info strong, .destino-info strong {
+    color: #495057;
+    display: block;
+    margin-bottom: 5px;
+}
+
 .badge-derivacion {
     background: #e3f2fd;
     color: #1976d2;

@@ -56,8 +56,20 @@ class Expediente {
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
         
         $query = "
-            SELECT 
-                h.*,
+            SELECT DISTINCT
+                h.id,
+                h.oficio_id,
+                h.area_origen_id,
+                h.usuario_origen_id,
+                h.area_destino_id,
+                h.usuario_destino_id,
+                h.respuesta,
+                h.estado,
+                h.observaciones,
+                h.fecha_derivacion,
+                h.fecha_fin,
+                h.tiempo_duracion,
+                h.es_respuesta_final,
                 ao.nombre as area_origen_nombre,
                 uo.nombre as usuario_origen_nombre,
                 uo.usuario as usuario_origen_usuario,
@@ -84,8 +96,18 @@ class Expediente {
                 if ($row['tiempo_duracion']) {
                     $row['tiempo_formateado'] = $this->formatearTiempo($row['tiempo_duracion']);
                 } else {
-                    $row['tiempo_formateado'] = 'En proceso';
+                    $row['tiempo_formateado'] = $row['es_respuesta_final'] ? 'Finalizado' : 'En proceso';
                 }
+                
+                // Determinar el tipo de registro
+                if ($row['es_respuesta_final']) {
+                    $row['tipo_registro'] = 'RESPUESTA';
+                } else if ($row['area_destino_id']) {
+                    $row['tipo_registro'] = 'DERIVACIÓN';
+                } else {
+                    $row['tipo_registro'] = 'REGISTRO INICIAL';
+                }
+                
                 $historial[] = $row;
             }
         }
@@ -147,28 +169,50 @@ class Expediente {
             : "Error al eliminar el oficio: " . mysqli_error($this->conn);
     }
 
-    public function derivar($id, $area_derivada, $usuario_derivado, $respuesta) {
+    public function derivar($id, $area_destino_id, $usuario_destino_id, $respuesta) {
         $id = mysqli_real_escape_string($this->conn, $id);
-        $area_derivada = mysqli_real_escape_string($this->conn, $area_derivada);
-        $usuario_derivado = mysqli_real_escape_string($this->conn, $usuario_derivado);
+        $area_destino_id = mysqli_real_escape_string($this->conn, $area_destino_id);
+        $usuario_destino_id = mysqli_real_escape_string($this->conn, $usuario_destino_id);
         $respuesta = mysqli_real_escape_string($this->conn, $respuesta);
 
-        // Primero, obtener información actual del oficio para el historial
+        // Obtener información actual del oficio
         $oficio_actual = $this->obtenerPorId($id);
         if (!$oficio_actual) {
             return "Error: Oficio no encontrado";
         }
 
-        // Cerrar el registro anterior en el historial (si existe)
-        $this->cerrarRegistroHistorialAnterior($id);
+        // Obtener información del usuario actual (quien está derivando)
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $usuario_origen_id = $_SESSION['id'];
+        $usuario_origen_info = $this->obtenerUsuarioPorId($usuario_origen_id);
+        
+        if (!$usuario_origen_info) {
+            return "Error: Usuario no encontrado";
+        }
+        
+        // Determinar el área de origen (del usuario que deriva)
+        $area_origen_id = $usuario_origen_info['area_id'];
 
-        // Registrar en el historial ANTES de actualizar
-        $this->registrarEnHistorial($oficio_actual, $area_derivada, $usuario_derivado, $respuesta);
+        // Cerrar el registro anterior del usuario actual si existe
+        $this->cerrarRegistroHistorialAnterior($id, $usuario_origen_id);
+
+        // Registrar la nueva derivación en el historial
+        $this->registrarDerivacionEnHistorial(
+            $id, 
+            $area_origen_id, 
+            $usuario_origen_id,
+            $area_destino_id, 
+            $usuario_destino_id, 
+            $respuesta,
+            'tramite'
+        );
 
         // Actualizar el oficio
         $update_query = "UPDATE oficios SET 
-                        area_derivada_id = '$area_derivada',
-                        usuario_derivado_id = '$usuario_derivado',
+                        area_derivada_id = '$area_destino_id',
+                        usuario_derivado_id = '$usuario_destino_id',
                         respuesta = '$respuesta',
                         estado = 'tramite',
                         fecha_derivacion = NOW()
@@ -179,34 +223,47 @@ class Expediente {
             : "Error al derivar el oficio: " . mysqli_error($this->conn);
     }
 
-    // Método para registrar en el historial
-    private function registrarEnHistorial($oficio, $area_destino_id, $usuario_destino_id, $respuesta) {
-        $oficio_id = mysqli_real_escape_string($this->conn, $oficio['id']);
-        $area_origen_id = mysqli_real_escape_string($this->conn, $oficio['area_id']);
-        $usuario_origen_id = mysqli_real_escape_string($this->conn, $oficio['usuario_id']);
+    // Método para obtener información del usuario
+    private function obtenerUsuarioPorId($usuario_id) {
+        $usuario_id = mysqli_real_escape_string($this->conn, $usuario_id);
+        $query = "SELECT * FROM login WHERE id = '$usuario_id'";
+        $result = mysqli_query($this->conn, $query);
+        return $result && mysqli_num_rows($result) > 0 ? mysqli_fetch_assoc($result) : null;
+    }
+
+    // Método para registrar derivación en el historial
+    private function registrarDerivacionEnHistorial($oficio_id, $area_origen_id, $usuario_origen_id, 
+                                                  $area_destino_id, $usuario_destino_id, $respuesta, $estado) {
+        $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
+        $area_origen_id = mysqli_real_escape_string($this->conn, $area_origen_id);
+        $usuario_origen_id = mysqli_real_escape_string($this->conn, $usuario_origen_id);
         $area_destino_id = mysqli_real_escape_string($this->conn, $area_destino_id);
         $usuario_destino_id = mysqli_real_escape_string($this->conn, $usuario_destino_id);
         $respuesta = mysqli_real_escape_string($this->conn, $respuesta);
-        $estado_actual = mysqli_real_escape_string($this->conn, $oficio['estado']);
+        $estado = mysqli_real_escape_string($this->conn, $estado);
 
         $query = "INSERT INTO historial_derivaciones (
                     oficio_id, area_origen_id, usuario_origen_id, 
                     area_destino_id, usuario_destino_id, respuesta, estado
                 ) VALUES (
                     '$oficio_id', '$area_origen_id', '$usuario_origen_id',
-                    '$area_destino_id', '$usuario_destino_id', '$respuesta', '$estado_actual'
+                    '$area_destino_id', '$usuario_destino_id', '$respuesta', '$estado'
                 )";
 
         return mysqli_query($this->conn, $query);
     }
 
-    // Método para cerrar el registro anterior en el historial
-    private function cerrarRegistroHistorialAnterior($oficio_id) {
+    // Método para cerrar el registro anterior del usuario específico
+    private function cerrarRegistroHistorialAnterior($oficio_id, $usuario_id) {
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
+        $usuario_id = mysqli_real_escape_string($this->conn, $usuario_id);
         
-        // Buscar el último registro sin fecha_fin
+        // Buscar el último registro donde este usuario fue el destino y no tiene fecha_fin
         $query = "SELECT id, fecha_derivacion FROM historial_derivaciones 
-                 WHERE oficio_id = '$oficio_id' AND fecha_fin IS NULL 
+                 WHERE oficio_id = '$oficio_id' 
+                 AND usuario_destino_id = '$usuario_id' 
+                 AND fecha_fin IS NULL 
+                 AND es_respuesta_final = 0
                  ORDER BY fecha_derivacion DESC LIMIT 1";
         
         $result = mysqli_query($this->conn, $query);
@@ -264,11 +321,33 @@ class Expediente {
             ];
         }
 
-        // Cerrar el último registro en el historial
-        $this->cerrarRegistroHistorialAnterior($id);
+        // Obtener información del usuario actual (quien está respondiendo)
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $usuario_origen_id = $_SESSION['id'];
+        $usuario_origen_info = $this->obtenerUsuarioPorId($usuario_origen_id);
+        
+        if (!$usuario_origen_info) {
+            return [
+                'success' => false,
+                'mensaje' => "Error: Usuario no encontrado"
+            ];
+        }
+        
+        $area_origen_id = $usuario_origen_info['area_id'];
 
-        // Registrar respuesta en el historial
-        $this->registrarRespuestaEnHistorial($oficio_actual, $respuesta, $estado);
+        // Cerrar el registro anterior del usuario actual
+        $this->cerrarRegistroHistorialAnterior($id, $usuario_origen_id);
+
+        // Registrar respuesta final en el historial
+        $this->registrarRespuestaFinalEnHistorial(
+            $id, 
+            $area_origen_id, 
+            $usuario_origen_id,
+            $respuesta, 
+            $estado
+        );
         
         $update_query = "UPDATE oficios SET 
                         respuesta = '$respuesta',
@@ -289,18 +368,41 @@ class Expediente {
         }
     }
 
-    private function registrarRespuestaEnHistorial($oficio, $respuesta, $nuevo_estado) {
-        $oficio_id = mysqli_real_escape_string($this->conn, $oficio['id']);
-        $area_origen_id = mysqli_real_escape_string($this->conn, $oficio['area_id']);
-        $usuario_origen_id = mysqli_real_escape_string($this->conn, $oficio['usuario_id']);
+    // Método para registrar respuesta final en el historial
+    private function registrarRespuestaFinalEnHistorial($oficio_id, $area_origen_id, $usuario_origen_id, $respuesta, $estado) {
+        $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
+        $area_origen_id = mysqli_real_escape_string($this->conn, $area_origen_id);
+        $usuario_origen_id = mysqli_real_escape_string($this->conn, $usuario_origen_id);
         $respuesta = mysqli_real_escape_string($this->conn, $respuesta);
+        $estado = mysqli_real_escape_string($this->conn, $estado);
 
         $query = "INSERT INTO historial_derivaciones (
                     oficio_id, area_origen_id, usuario_origen_id, 
-                    respuesta, estado, observaciones
+                    respuesta, estado, es_respuesta_final
                 ) VALUES (
                     '$oficio_id', '$area_origen_id', '$usuario_origen_id',
-                    '$respuesta', '$nuevo_estado', 'RESPUESTA FINAL'
+                    '$respuesta', '$estado', 1
+                )";
+
+        return mysqli_query($this->conn, $query);
+    }
+
+    // Método para registrar el oficio inicial en el historial cuando se crea
+    public function registrarOficioInicial($oficio_id, $area_id, $usuario_id, $remitente, $numero_documento) {
+        $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
+        $area_id = mysqli_real_escape_string($this->conn, $area_id);
+        $usuario_id = mysqli_real_escape_string($this->conn, $usuario_id);
+        $remitente = mysqli_real_escape_string($this->conn, $remitente);
+        $numero_documento = mysqli_real_escape_string($this->conn, $numero_documento);
+
+        $observaciones = "Oficio creado - Remitente: " . $remitente . " - N° Doc: " . $numero_documento;
+
+        $query = "INSERT INTO historial_derivaciones (
+                    oficio_id, area_origen_id, usuario_origen_id, 
+                    estado, observaciones
+                ) VALUES (
+                    '$oficio_id', '$area_id', '$usuario_id',
+                    'pendiente', '$observaciones'
                 )";
 
         return mysqli_query($this->conn, $query);

@@ -6,7 +6,6 @@ class HistorialController {
     public function historial() {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
-        // Verificar si el usuario está autenticado
         if (!isset($_SESSION['id'])) {
             header("Location: index.php?action=login");
             exit();
@@ -25,6 +24,17 @@ class HistorialController {
             $oficio_id = intval($_GET['oficio_id']);
             $info_oficio = $expedienteModel->obtenerPorId($oficio_id);
             $historial = $expedienteModel->obtenerHistorialDerivaciones($oficio_id);
+            
+            // DEPURACIÓN: Mostrar información del historial
+            echo "<!-- DEPURACIÓN: ";
+            echo "Oficio ID: " . $oficio_id . "\n";
+            echo "Total registros en historial: " . count($historial) . "\n";
+            foreach ($historial as $index => $registro) {
+                echo "Registro " . ($index + 1) . ": ID=" . $registro['id'] . 
+                     ", Fecha=" . $registro['fecha_derivacion'] . 
+                     ", Usuario Origen=" . $registro['usuario_origen_nombre'] . "\n";
+            }
+            echo "-->";
         }
 
         // Pasar variables a la vista
