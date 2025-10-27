@@ -80,7 +80,7 @@ body {
 }
 
 .page-title {
-    color: var(--text-color);
+    color: var(--primary-color);
     margin-bottom: 25px;
     font-weight: 600;
     display: flex;
