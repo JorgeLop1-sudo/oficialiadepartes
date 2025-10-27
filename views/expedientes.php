@@ -202,6 +202,12 @@
                                             <i class="nav icon material-symbols-rounded">delete</i>
                                         </button>
                                     <?php endif; ?>
+
+                                    <?php if ($tipo_usuario === 'Administrador'): ?>
+                                        <a class="btn btn-sm btn-historial" title="Historial derivaciones" href="index.php?action=historial">
+                                            <i class="nav icon material-symbols-rounded">schedule</i>
+                                    </a>
+                                    <?php endif; ?>
                                 </td>
                                 </tr>
                             <?php endforeach; ?>
