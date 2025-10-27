@@ -50,8 +50,8 @@ class Expediente {
         return $expedientes;
     }
 
-    // Método para obtener el historial completo
-    /*public function obtenerHistorialDerivaciones($oficio_id) {
+    // Método para obtener el historial completo de un oficio
+    public function obtenerHistorialDerivaciones($oficio_id) {
         $historial = [];
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
         
@@ -65,7 +65,6 @@ class Expediente {
                 ud.nombre as usuario_destino_nombre,
                 ud.usuario as usuario_destino_usuario,
                 o.remitente,
-                o.asunto,
                 o.numero_documento
             FROM historial_derivaciones h
             LEFT JOIN areas ao ON h.area_origen_id = ao.id
@@ -81,14 +80,34 @@ class Expediente {
         
         if ($result) {
             while ($row = mysqli_fetch_assoc($result)) {
+                // Calcular tiempo de duración formateado
+                if ($row['tiempo_duracion']) {
+                    $row['tiempo_formateado'] = $this->formatearTiempo($row['tiempo_duracion']);
+                } else {
+                    $row['tiempo_formateado'] = 'En proceso';
+                }
                 $historial[] = $row;
             }
         }
         
         return $historial;
-    }*/
+    }
 
+    // Método para formatear el tiempo en formato legible
+    private function formatearTiempo($segundos) {
+        $dias = floor($segundos / 86400);
+        $horas = floor(($segundos % 86400) / 3600);
+        $minutos = floor(($segundos % 3600) / 60);
+        $segundos = $segundos % 60;
 
+        $tiempo = '';
+        if ($dias > 0) $tiempo .= $dias . 'd ';
+        if ($horas > 0) $tiempo .= $horas . 'h ';
+        if ($minutos > 0) $tiempo .= $minutos . 'm ';
+        if ($segundos > 0) $tiempo .= $segundos . 's';
+
+        return trim($tiempo);
+    }
 
     public function obtenerPorId($id) {
         $id = mysqli_real_escape_string($this->conn, $id);
@@ -140,8 +159,11 @@ class Expediente {
             return "Error: Oficio no encontrado";
         }
 
+        // Cerrar el registro anterior en el historial (si existe)
+        $this->cerrarRegistroHistorialAnterior($id);
+
         // Registrar en el historial ANTES de actualizar
-        //$this->registrarEnHistorial($oficio_actual, $area_derivada, $usuario_derivado, $respuesta);
+        $this->registrarEnHistorial($oficio_actual, $area_derivada, $usuario_derivado, $respuesta);
 
         // Actualizar el oficio
         $update_query = "UPDATE oficios SET 
@@ -157,8 +179,8 @@ class Expediente {
             : "Error al derivar el oficio: " . mysqli_error($this->conn);
     }
 
-     // Método para registrar en el historial
-    /* private function registrarEnHistorial($oficio, $area_destino_id, $usuario_destino_id, $respuesta) {
+    // Método para registrar en el historial
+    private function registrarEnHistorial($oficio, $area_destino_id, $usuario_destino_id, $respuesta) {
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio['id']);
         $area_origen_id = mysqli_real_escape_string($this->conn, $oficio['area_id']);
         $usuario_origen_id = mysqli_real_escape_string($this->conn, $oficio['usuario_id']);
@@ -176,7 +198,34 @@ class Expediente {
                 )";
 
         return mysqli_query($this->conn, $query);
-    }*/
+    }
+
+    // Método para cerrar el registro anterior en el historial
+    private function cerrarRegistroHistorialAnterior($oficio_id) {
+        $oficio_id = mysqli_real_escape_string($this->conn, $oficio_id);
+        
+        // Buscar el último registro sin fecha_fin
+        $query = "SELECT id, fecha_derivacion FROM historial_derivaciones 
+                 WHERE oficio_id = '$oficio_id' AND fecha_fin IS NULL 
+                 ORDER BY fecha_derivacion DESC LIMIT 1";
+        
+        $result = mysqli_query($this->conn, $query);
+        
+        if ($result && mysqli_num_rows($result) > 0) {
+            $registro_anterior = mysqli_fetch_assoc($result);
+            $registro_id = $registro_anterior['id'];
+            
+            // Calcular duración en segundos
+            $duracion = time() - strtotime($registro_anterior['fecha_derivacion']);
+            
+            // Actualizar con fecha_fin y duración
+            $update_query = "UPDATE historial_derivaciones 
+                           SET fecha_fin = NOW(), tiempo_duracion = '$duracion'
+                           WHERE id = '$registro_id'";
+            
+            mysqli_query($this->conn, $update_query);
+        }
+    }
 
     public function obtenerUsuariosPorArea($area_id) {
         $area_id = mysqli_real_escape_string($this->conn, $area_id);
@@ -186,7 +235,7 @@ class Expediente {
                 FROM login 
                 WHERE area_id = '$area_id' 
                 AND activo = 1 
-                AND tipo_usuario != 'Guardia'  -- Opcional: excluir guardias si no deben aparecer
+                AND tipo_usuario != 'Guardia'
                 ORDER BY nombre ASC";
         
         $result = mysqli_query($this->conn, $sql);
@@ -215,8 +264,11 @@ class Expediente {
             ];
         }
 
+        // Cerrar el último registro en el historial
+        $this->cerrarRegistroHistorialAnterior($id);
+
         // Registrar respuesta en el historial
-        //$this->registrarRespuestaEnHistorial($oficio_actual, $respuesta, $estado);
+        $this->registrarRespuestaEnHistorial($oficio_actual, $respuesta, $estado);
         
         $update_query = "UPDATE oficios SET 
                         respuesta = '$respuesta',
@@ -237,7 +289,7 @@ class Expediente {
         }
     }
 
-    /*private function registrarRespuestaEnHistorial($oficio, $respuesta, $nuevo_estado) {
+    private function registrarRespuestaEnHistorial($oficio, $respuesta, $nuevo_estado) {
         $oficio_id = mysqli_real_escape_string($this->conn, $oficio['id']);
         $area_origen_id = mysqli_real_escape_string($this->conn, $oficio['area_id']);
         $usuario_origen_id = mysqli_real_escape_string($this->conn, $oficio['usuario_id']);
@@ -252,7 +304,7 @@ class Expediente {
                 )";
 
         return mysqli_query($this->conn, $query);
-    }*/
+    }
     
 }
 ?>

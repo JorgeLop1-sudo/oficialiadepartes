@@ -204,9 +204,10 @@
                                     <?php endif; ?>
 
                                     <?php if ($tipo_usuario === 'Administrador'): ?>
-                                        <a class="btn btn-sm btn-historial" title="Historial derivaciones" href="index.php?action=historial">
+                                        <a class="btn btn-sm btn-historial" title="Historial derivaciones" 
+                                        href="index.php?action=historial&oficio_id=<?php echo $expediente['id']; ?>">
                                             <i class="nav icon material-symbols-rounded">schedule</i>
-                                    </a>
+                                        </a>
                                     <?php endif; ?>
                                 </td>
                                 </tr>
