@@ -17,72 +17,72 @@
 
 </head>
 <body>
-    <!-- Incluir el sidebar -->
-    <?php include 'partials/sidebar.php'; ?>
+<!-- Incluir el sidebar -->
+<?php include 'partials/sidebar.php'; ?>
     
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Header -->
-        <?php include 'partials/header.php'; ?>
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <?php include 'partials/header.php'; ?>
 
-        <!-- Page Title -->
-        <div class="page-header">
-            <h3 class="page-title">
-                <?php if ($info_oficio): ?>
-                    Historial de Derivaciones - Oficio #<?php echo $info_oficio['id']; ?>
-                <?php else: ?>
-                    Historial de Derivaciones
-                <?php endif; ?>
-            </h3>
-            
-            <?php if (!$info_oficio): ?>
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    Selecciona un oficio desde la gestión de expedientes para ver su historial completo.
-                </div>
+    <!-- Page Title -->
+    <div class="page-header">
+        <h3 class="page-title">
+            <?php if ($info_oficio): ?>
+                Historial de Derivaciones - Oficio #<?php echo $info_oficio['id']; ?>
+            <?php else: ?>
+                Historial de Derivaciones
             <?php endif; ?>
-        </div>
+        </h3>
+            
+        <?php if (!$info_oficio): ?>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                Selecciona un oficio desde la gestión de expedientes para ver su historial completo.
+            </div>
+        <?php endif; ?>
+    </div>
 
-        <?php if ($info_oficio): ?>
-            <!-- Información del Oficio -->
-            <div class="card oficio-info-card">
-                <div class="card-header">
-                    <h5>Información del Oficio</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <strong>ID:</strong> <?php echo $info_oficio['id']; ?>
-                        </div>
-                        <div class="col-md-3">
-                            <strong>Remitente:</strong> <?php echo htmlspecialchars($info_oficio['remitente']); ?>
-                        </div>
-                        <div class="col-md-3">
-                            <strong>N° Documento:</strong> <?php echo htmlspecialchars($info_oficio['numero_documento'] ?? 'N/A'); ?>
-                        </div>
-                        <div class="col-md-3">
-                            <strong>Estado:</strong> 
-                            <span class="badge-estado <?php 
-                                switch($info_oficio['estado']) {
-                                    case 'pendiente': echo 'badge-pendiente'; break;
-                                    case 'tramite': echo 'badge-proceso'; break;
-                                    case 'completado': echo 'badge-completado'; break;
-                                    case 'denegado': echo 'badge-denegado'; break;
-                                }
-                            ?>">
-                                <?php 
-                                switch($info_oficio['estado']) {
-                                    case 'pendiente': echo 'Pendiente'; break;
-                                    case 'tramite': echo 'En trámite'; break;
-                                    case 'completado': echo 'Completado'; break;
-                                    case 'denegado': echo 'Denegado'; break;
-                                }
-                                ?>
-                            </span>
-                        </div>
+    <?php if ($info_oficio): ?>
+        <!-- Información del Oficio -->
+        <div class="card oficio-info-card">
+            <div class="card-header">
+                <h5>Información del Oficio</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>ID:</strong> <?php echo $info_oficio['id']; ?>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Remitente:</strong> <?php echo htmlspecialchars($info_oficio['remitente']); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>N° Documento:</strong> <?php echo htmlspecialchars($info_oficio['numero_documento'] ?? 'N/A'); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Estado:</strong> 
+                        <span class="badge-estado <?php 
+                            switch($info_oficio['estado']) {
+                                case 'pendiente': echo 'badge-pendiente'; break;
+                                case 'tramite': echo 'badge-proceso'; break;
+                                case 'completado': echo 'badge-completado'; break;
+                                case 'denegado': echo 'badge-denegado'; break;
+                            }
+                        ?>">
+                            <?php 
+                            switch($info_oficio['estado']) {
+                                case 'pendiente': echo 'Pendiente'; break;
+                                case 'tramite': echo 'En trámite'; break;
+                                case 'completado': echo 'Completado'; break;
+                                case 'denegado': echo 'Denegado'; break;
+                            }
+                            ?>
+                        </span>
                     </div>
                 </div>
             </div>
+        </div>
 
             <!-- Historial de Derivaciones -->
         <div class="historial-container">
